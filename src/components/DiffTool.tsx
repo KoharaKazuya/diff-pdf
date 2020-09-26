@@ -1,3 +1,4 @@
+import { Form, Grid, View } from "@adobe/react-spectrum";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import type { PagePair } from "../comparator";
 import { comparePDFs } from "../comparator";
@@ -35,7 +36,7 @@ export default function DiffTool() {
 
   return (
     <>
-      <div>
+      <Form>
         <input
           type="file"
           accept=".pdf,application/pdf"
@@ -46,8 +47,8 @@ export default function DiffTool() {
           accept=".pdf,application/pdf"
           onChange={createChangeHandler(setParserR)}
         />
-      </div>
-      <div style={{ display: "grid" }}>
+      </Form>
+      <Grid columns={["1fr", "1fr", "1fr"]}>
         {parserL && (
           <PdfPreview
             parser={parserL}
@@ -56,9 +57,9 @@ export default function DiffTool() {
           />
         )}
         {pagePairs.map((pair, i) => (
-          <div style={{ gridColumnStart: 2, gridRowStart: i + 1 }}>
+          <View gridColumnStart="2" gridRowStart={`${i + 1}`}>
             {"diff" in pair ? <Image data={pair.diff} /> : <PdfEmptyPage />}
-          </div>
+          </View>
         ))}
         {parserR && (
           <PdfPreview
@@ -67,7 +68,7 @@ export default function DiffTool() {
             gridColumnStart={3}
           />
         )}
-      </div>
+      </Grid>
     </>
   );
 }

@@ -1,3 +1,4 @@
+import { View } from "@adobe/react-spectrum";
 import React, { useEffect, useState } from "react";
 import type { PdfParser } from "../../pdf-parser";
 import { PdfPage } from "../shared/PdfPage";
@@ -18,9 +19,9 @@ export default function PdfPreview({
   return (
     <>
       {pages.map((p, i) => (
-        <div style={{ gridColumnStart, gridRowStart: i + 1 }}>
+        <View gridColumnStart={`${gridColumnStart}`} gridRowStart={`${i + 1}`}>
           <PdfPage parser={parser} index={p} />
-        </div>
+        </View>
       ))}
     </>
   );

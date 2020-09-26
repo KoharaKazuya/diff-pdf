@@ -1,3 +1,4 @@
+import { View } from "@adobe/react-spectrum";
 import React, { useEffect, useState } from "react";
 import type { PdfParser } from "../../pdf-parser";
 import Image from "./Image";
@@ -27,5 +28,5 @@ export function PdfPage({ parser, index }: Props) {
 }
 
 export function PdfEmptyPage() {
-  return <div>Empty</div>;
+  return <View>Empty</View>;
 }
