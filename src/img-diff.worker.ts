@@ -1,5 +1,6 @@
 /// <reference lib="webworker" />
 
+import { expose } from "funcable";
 import pixelmatch from "pixelmatch";
 import type { ImgDiffResult } from "./img-diff";
 
@@ -25,13 +26,7 @@ async function imgDiff(
   };
 }
 
-self.addEventListener("message", (event) => {
-  const { id, type, payload } = event.data;
-  switch (type) {
-    case "imgDiff": {
-      imgDiff(payload.img1, payload.img2).then((r) =>
-        self.postMessage({ id, type, payload: r })
-      );
-    }
-  }
-});
+const exposed = { imgDiff };
+export type Exposed = typeof exposed;
+
+expose(exposed);
