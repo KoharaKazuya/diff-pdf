@@ -1,7 +1,7 @@
 import { View } from "@adobe/react-spectrum";
 import React, { useEffect, useState } from "react";
 import type { PdfParser } from "../../pdf-parser";
-import Image from "./Image";
+import Image from "../shared/Image";
 
 type Props = {
   parser: PdfParser;
