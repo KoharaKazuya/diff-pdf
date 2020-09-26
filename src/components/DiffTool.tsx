@@ -1,8 +1,9 @@
 import { Form, Grid, View } from "@adobe/react-spectrum";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import type { PagePair } from "../comparator";
 import { comparePDFs } from "../comparator";
 import { PdfParser } from "../pdf-parser";
+import InputFile from "./DiffTool/InputFile";
 import PdfPreview from "./DiffTool/PdfPreview";
 import Image from "./shared/Image";
 import { PdfEmptyPage } from "./shared/PdfPage";
@@ -24,11 +25,10 @@ export default function DiffTool() {
   }, [parserL, parserR]);
 
   const createChangeHandler = (setParser: (parser: PdfParser) => void) => (
-    event: ChangeEvent<HTMLInputElement>
+    files: File[]
   ) => {
-    const fileList = event.target.files;
-    if (!fileList || fileList.length === 0) return;
-    const file = fileList[0];
+    if (files.length === 0) return;
+    const file = files[0];
 
     const parser = new PdfParser(file);
     setParser(parser);
@@ -37,15 +37,13 @@ export default function DiffTool() {
   return (
     <>
       <Form>
-        <input
-          type="file"
+        <InputFile
           accept=".pdf,application/pdf"
-          onChange={createChangeHandler(setParserL)}
+          onAccept={createChangeHandler(setParserL)}
         />
-        <input
-          type="file"
+        <InputFile
           accept=".pdf,application/pdf"
-          onChange={createChangeHandler(setParserR)}
+          onAccept={createChangeHandler(setParserR)}
         />
       </Form>
       <Grid columns={["1fr", "1fr", "1fr"]}>
