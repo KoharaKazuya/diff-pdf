@@ -1,4 +1,4 @@
-const worker = new Worker("./img-diff.worker", { type: "module" });
+let worker: Worker;
 
 export type ImgDiffResult =
   | {
@@ -21,6 +21,8 @@ export function imgDiff(
   img2: ImageData
 ): Promise<ImgDiffResult> {
   const id = Math.floor(Math.random() * 2 ** 50);
+
+  if (!worker) worker = new Worker("./img-diff.worker", { type: "module" });
 
   worker.postMessage({ id, type: "imgDiff", payload: { img1, img2 } });
 
