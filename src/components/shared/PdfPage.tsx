@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import type { PdfParser } from "../pdf-parser";
-import { Image } from "./image";
+import type { PdfParser } from "../../pdf-parser";
+import Image from "./Image";
 
 type Props = {
   parser: PdfParser;

@@ -2,6 +2,7 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
+    "directory-check": "npx destiny 'src/components/*'",
     "postinstall": "rm -rf public/pdfjs-dist && mkdir -p public/pdfjs-dist && cp -r node_modules/pdfjs-dist/{build,cmaps} public/pdfjs-dist/",
     "start": "next start",
     "type-check": "tsc"

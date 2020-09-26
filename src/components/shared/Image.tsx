@@ -4,7 +4,7 @@ type Props = {
   data: ImageData;
 };
 
-export function Image({ data }: Props) {
+export default function Image({ data }: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {

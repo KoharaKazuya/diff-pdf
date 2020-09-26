@@ -1,6 +1,6 @@
 import Head from "next/head";
 import React from "react";
-import { App } from "../components/app";
+import DiffTool from "../components/DiffTool";
 
 export default function Home() {
   return (
@@ -16,7 +16,7 @@ export default function Home() {
         の比較は完全にローカルのみで実行し、ファイルをアップロードすることはありません。
       </p>
 
-      <App />
+      <DiffTool />
     </>
   );
 }

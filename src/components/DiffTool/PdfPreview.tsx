@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import type { PdfParser } from "../pdf-parser";
-import { PdfPage } from "./pdf-page";
+import type { PdfParser } from "../../pdf-parser";
+import { PdfPage } from "../shared/PdfPage";
 
 type Props = {
   parser: PdfParser;
@@ -8,7 +8,11 @@ type Props = {
   gridColumnStart: number;
 };
 
-export function PdfPreview({ parser, pairedPages, gridColumnStart }: Props) {
+export default function PdfPreview({
+  parser,
+  pairedPages,
+  gridColumnStart,
+}: Props) {
   const pages = usePages(parser, pairedPages);
 
   return (

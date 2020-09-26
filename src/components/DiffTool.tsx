@@ -2,11 +2,11 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import type { PagePair } from "../comparator";
 import { comparePDFs } from "../comparator";
 import { PdfParser } from "../pdf-parser";
-import { Image } from "./image";
-import { PdfEmptyPage } from "./pdf-page";
-import { PdfPreview } from "./pdf-preview";
+import PdfPreview from "./DiffTool/PdfPreview";
+import Image from "./shared/Image";
+import { PdfEmptyPage } from "./shared/PdfPage";
 
-export function App() {
+export default function DiffTool() {
   const [parserL, setParserL] = useState<PdfParser>();
   const [parserR, setParserR] = useState<PdfParser>();
 
