@@ -1,13 +1,13 @@
 import type { PDFDocumentProxy, PDFPageProxy } from "pdfjs-dist";
 import * as pdfjsLib from "pdfjs-dist";
+import { v4 as uuid } from "uuid";
 import type { Document, Page, Parser } from "./pdf";
 
-(pdfjsLib.GlobalWorkerOptions as any).workerPort = new Worker(
-  "pdfjs-dist/build/pdf.worker.js",
-  { type: "module" }
-);
+pdfjsLib.GlobalWorkerOptions.workerSrc = "/pdfjs-dist/build/pdf.worker.js";
 
 export class PdfParser implements Parser {
+  public readonly id = uuid();
+
   constructor(private readonly file: File) {}
 
   private parsing: Promise<PdfDocument> | undefined;

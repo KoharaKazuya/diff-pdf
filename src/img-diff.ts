@@ -1,4 +1,7 @@
-const worker = new Worker("./img-diff.worker", { type: "module" });
+import { wrap } from "funcable";
+import type { Exposed } from "./img-diff.worker";
+
+let worker: Exposed;
 
 export type ImgDiffResult =
   | {
@@ -20,17 +23,8 @@ export function imgDiff(
   img1: ImageData,
   img2: ImageData
 ): Promise<ImgDiffResult> {
-  const id = Math.floor(Math.random() * 2 ** 50);
+  if (!worker)
+    worker = wrap(new Worker("./img-diff.worker", { type: "module" }));
 
-  worker.postMessage({ id, type: "imgDiff", payload: { img1, img2 } });
-
-  return new Promise((resolve) => {
-    worker.addEventListener("message", function listener(event) {
-      const { id: rId, type, payload } = event.data;
-      if (rId === id && type === "imgDiff") {
-        resolve(payload);
-        worker.removeEventListener("message", listener);
-      }
-    });
-  });
+  return worker.imgDiff(img1, img2);
 }

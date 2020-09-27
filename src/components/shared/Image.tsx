@@ -4,7 +4,7 @@ type Props = {
   data: ImageData;
 };
 
-export function Image({ data }: Props) {
+export default function Image({ data }: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export function Image({ data }: Props) {
       ref={canvasRef}
       width={data.width}
       height={data.height}
-      style={{ display: "block" }}
+      style={{ display: "block", maxWidth: "100%" }}
     />
   );
 }
