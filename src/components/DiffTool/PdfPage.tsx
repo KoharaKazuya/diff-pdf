@@ -1,32 +1,28 @@
-import { View } from "@adobe/react-spectrum";
+import { Text } from "@adobe/react-spectrum";
 import React, { useEffect, useState } from "react";
 import type { PdfParser } from "../../pdf-parser";
+import Centerize from "../shared/Centerize";
 import Image from "../shared/Image";
 
 type Props = {
   parser: PdfParser;
-  index?: number;
+  index: number;
 };
 
 export function PdfPage({ parser, index }: Props) {
   const [image, setImage] = useState<ImageData>();
 
   useEffect(() => {
-    if (index === undefined) {
-      setImage(undefined);
-    } else {
-      parser
-        .parse()
-        .then((doc) => doc.getPage(index))
-        .then((page) => page.render())
-        .then((image) => setImage(image));
-    }
+    parser
+      .parse()
+      .then((doc) => doc.getPage(index))
+      .then((page) => page.render())
+      .then((image) => setImage(image));
   }, [parser, index]);
 
-  if (!image) return <PdfEmptyPage />;
-  return <Image data={image} />;
-}
-
-export function PdfEmptyPage() {
-  return <View>Empty</View>;
+  return (
+    <Centerize>
+      {image ? <Image data={image} /> : <Text>Loading...</Text>}
+    </Centerize>
+  );
 }

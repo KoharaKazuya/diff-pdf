@@ -21,7 +21,7 @@ export default function Image({ data }: Props) {
       ref={canvasRef}
       width={data.width}
       height={data.height}
-      style={{ display: "block" }}
+      style={{ display: "block", maxWidth: "100%" }}
     />
   );
 }

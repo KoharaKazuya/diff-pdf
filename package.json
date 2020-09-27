@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@adobe/react-spectrum": "^3.3.0",
+    "@spectrum-icons/workflow": "^3.1.0",
     "funcable": "^0.1.0",
     "next": "9.5.3",
     "pdfjs-dist": "^2.5.207",
@@ -16,7 +17,8 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-dropzone": "^11.2.0",
-    "sanitize.css": "^12.0.1"
+    "sanitize.css": "^12.0.1",
+    "uuid": "^8.3.0"
   },
   "devDependencies": {
     "@types/node": "^14.11.2",
@@ -24,6 +26,7 @@
     "@types/pixelmatch": "^5.2.2",
     "@types/react": "^16.9.49",
     "@types/react-dom": "^16.9.8",
+    "@types/uuid": "^8.3.0",
     "@zeit/next-css": "^1.0.1",
     "next-compose-plugins": "^2.2.0",
     "next-transpile-modules": "^4.1.0",
