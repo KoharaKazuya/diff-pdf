@@ -4,9 +4,10 @@ import type { PagePair } from "../comparator";
 import { comparePDFs } from "../comparator";
 import { PdfParser } from "../pdf-parser";
 import GridStack from "./DiffTool/GridStack";
-import InputFile from "./DiffTool/InputFile";
 import NoMatch from "./DiffTool/NoMatch";
+import PdfFilePicker from "./DiffTool/PdfFilePicker";
 import { PdfPage } from "./DiffTool/PdfPage";
+import PdfStorageProvider from "./DiffTool/PdfStorageProvider";
 import Centerize from "./shared/Centerize";
 import Image from "./shared/Image";
 
@@ -27,11 +28,8 @@ export default function DiffTool() {
   }, [parserL, parserR]);
 
   const createChangeHandler = (setParser: (parser: PdfParser) => void) => (
-    files: File[]
+    file: File
   ) => {
-    if (files.length === 0) return;
-    const file = files[0];
-
     const parser = new PdfParser(file);
     setParser(parser);
   };
@@ -46,17 +44,11 @@ export default function DiffTool() {
   );
 
   return (
-    <>
+    <PdfStorageProvider>
       <Form>
         <Grid columns={["1fr", "1fr"]}>
-          <InputFile
-            accept=".pdf,application/pdf"
-            onAccept={createChangeHandler(setParserL)}
-          />
-          <InputFile
-            accept=".pdf,application/pdf"
-            onAccept={createChangeHandler(setParserR)}
-          />
+          <PdfFilePicker onPick={createChangeHandler(setParserL)} />
+          <PdfFilePicker onPick={createChangeHandler(setParserR)} />
         </Grid>
       </Form>
       <Grid columns={["1fr", "1fr", "1fr"]}>
@@ -100,7 +92,7 @@ export default function DiffTool() {
             )}
         </GridStack>
       </Grid>
-    </>
+    </PdfStorageProvider>
   );
 }
 
