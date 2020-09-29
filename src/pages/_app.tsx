@@ -5,7 +5,7 @@ import "sanitize.css";
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <SSRProvider>
-      <Provider theme={defaultTheme}>
+      <Provider theme={defaultTheme} locale="ja">
         <Component {...pageProps} />
       </Provider>
     </SSRProvider>

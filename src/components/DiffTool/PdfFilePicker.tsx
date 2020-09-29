@@ -1,6 +1,6 @@
 import { Item, Picker, Text, View } from "@adobe/react-spectrum";
-import React, { useEffect, useReducer, useState } from "react";
-import type { Pdf } from "../../pdf-storage";
+import React, { Key, useEffect, useReducer, useState } from "react";
+import type { PdfFileMeta } from "../../pdf-storage";
 import InputFile from "./InputFile";
 import { usePdfStorageContext } from "./PdfStorageProvider";
 
@@ -22,11 +22,8 @@ export default function PdfFilePicker({ onPick }: Props) {
         onSelectionChange={onSelectionChange}
       >
         {pdfs.map((pdf) => (
-          <Item
-            key={pdf.id}
-            textValue={`${pdf.file.name} - ${pdf.registeredAt}`}
-          >
-            <Text>{pdf.file.name}</Text>
+          <Item key={pdf.id} textValue={`${pdf.name} - ${pdf.registeredAt}`}>
+            <Text>{pdf.name}</Text>
             <Text slot="description">{pdf.registeredAt.toLocaleString()}</Text>
           </Item>
         ))}
@@ -36,10 +33,10 @@ export default function PdfFilePicker({ onPick }: Props) {
 }
 
 function usePdfSelection(onPick: Props["onPick"]) {
-  const [pdfs, setPdfs] = useState<Pdf[]>([]);
-  const [selectedPdfId, setSelectedPdfId] = useState<Pdf["id"] | undefined>(
-    undefined
-  );
+  const [pdfs, setPdfs] = useState<PdfFileMeta[]>([]);
+  const [selectedPdfId, setSelectedPdfId] = useState<
+    PdfFileMeta["id"] | undefined
+  >(undefined);
   const [updator, forceUpdate] = useReducer((s) => s + 1, 0);
   const storage = usePdfStorageContext();
 
@@ -57,10 +54,10 @@ function usePdfSelection(onPick: Props["onPick"]) {
     });
   };
 
-  const onSelectionChange = (key: unknown) => {
-    const selectedPdf = pdfs.find((pdf) => pdf.id === key);
-    setSelectedPdfId(selectedPdf?.id);
-    if (selectedPdf) onPick?.(selectedPdf.file);
+  const onSelectionChange = (key: Key) => {
+    const meta = pdfs.find((pdf) => String(pdf.id) === String(key));
+    setSelectedPdfId(meta?.id);
+    if (meta) storage.get(meta.id).then((file) => onPick?.(file));
   };
 
   return [pdfs, onAccept, selectedPdfId, onSelectionChange] as const;
