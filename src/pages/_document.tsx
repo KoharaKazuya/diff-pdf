@@ -11,7 +11,7 @@ export default class MyDocument extends Document {
   render() {
     let csp = `default-src 'self'; script-src 'self' ${cspHashOf(
       NextScript.getInlineScriptSource(this.props)
-    )}`;
+    )}; style-src 'self' 'unsafe-inline'`;
 
     if (process.env.NODE_ENV !== "production") {
       csp = `style-src 'self' 'unsafe-inline'; font-src 'self' data:; default-src 'self'; script-src 'unsafe-eval' 'self' ${cspHashOf(
