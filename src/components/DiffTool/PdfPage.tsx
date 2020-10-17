@@ -22,7 +22,11 @@ export function PdfPage({ parser, index }: Props) {
 
   return (
     <Centerize>
-      {image ? <Image data={image} /> : <Text>Loading...</Text>}
+      {image ? (
+        <Image data={image} aria-label={`PDF page ${index}`} />
+      ) : (
+        <Text>Loading...</Text>
+      )}
     </Centerize>
   );
 }

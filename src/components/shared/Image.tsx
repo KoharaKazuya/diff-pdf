@@ -2,9 +2,10 @@ import React, { useEffect, useRef } from "react";
 
 type Props = {
   data: ImageData;
+  "aria-label"?: string;
 };
 
-export default function Image({ data }: Props) {
+export default function Image({ data, "aria-label": ariaLabel }: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -22,6 +23,7 @@ export default function Image({ data }: Props) {
       width={data.width}
       height={data.height}
       style={{ display: "block", maxWidth: "100%" }}
+      aria-label={ariaLabel}
     />
   );
 }

@@ -70,7 +70,7 @@ export default function DiffTool() {
           {pagePairs.map((pair, i) =>
             "diff" in pair ? (
               <Centerize key={`${parserL?.id}-${parserR?.id}-${i}`}>
-                <Image data={pair.diff} />
+                <Image data={pair.diff} aria-label="PDF page difference" />
               </Centerize>
             ) : (
               <NoMatch key={`${parserL?.id}-${parserR?.id}-${i}`} />
