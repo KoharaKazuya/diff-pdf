@@ -22,7 +22,9 @@ export default class MyDocument extends Document {
 
     return (
       <Html lang="ja">
-        <Head />
+        <Head>
+          <meta httpEquiv="Content-Security-Policy" content={csp} />
+        </Head>
         <body>
           <Main />
           <NextScript />
