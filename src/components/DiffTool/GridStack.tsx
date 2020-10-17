@@ -1,5 +1,5 @@
 import { View } from "@adobe/react-spectrum";
-import React, { Children, ComponentProps, ReactNode } from "react";
+import { Children, ComponentProps, ReactNode } from "react";
 
 type Props = Pick<ComponentProps<typeof View>, "gridColumnStart"> & {
   children?: ReactNode;

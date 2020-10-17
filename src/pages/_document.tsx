@@ -1,6 +1,5 @@
 import crypto from "crypto";
 import Document, { Head, Html, Main, NextScript } from "next/document";
-import React from "react";
 
 const cspHashOf = (text: string) => {
   const hash = crypto.createHash("sha256");
@@ -22,7 +21,9 @@ export default class MyDocument extends Document {
 
     return (
       <Html lang="ja">
-        <Head />
+        <Head>
+          <meta httpEquiv="Content-Security-Policy" content={csp} />
+        </Head>
         <body>
           <Main />
           <NextScript />
