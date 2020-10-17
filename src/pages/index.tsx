@@ -1,6 +1,5 @@
 import { View } from "@adobe/react-spectrum";
 import Head from "next/head";
-import React from "react";
 import DiffTool from "../components/DiffTool";
 
 export default function Home() {

@@ -1,5 +1,5 @@
 import { Form, Grid } from "@adobe/react-spectrum";
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { PagePair } from "../comparator";
 import { comparePDFs } from "../comparator";
 import { PdfParser } from "../pdf-parser";

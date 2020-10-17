@@ -1,5 +1,5 @@
 import { Item, Picker, Text, View } from "@adobe/react-spectrum";
-import React, { Key, useEffect, useReducer, useState } from "react";
+import { Key, useEffect, useReducer, useState } from "react";
 import type { PdfFileMeta } from "../../pdf-storage";
 import InputFile from "./InputFile";
 import { usePdfStorageContext } from "./PdfStorageProvider";

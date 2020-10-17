@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useContext, useMemo } from "react";
+import { createContext, ReactNode, useContext, useMemo } from "react";
 import { PdfStorage } from "../../pdf-storage";
 
 const PdfStorageContext = createContext<PdfStorage | undefined>(undefined);

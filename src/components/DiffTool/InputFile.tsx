@@ -1,6 +1,6 @@
 import { Text, View } from "@adobe/react-spectrum";
 import FileAdd from "@spectrum-icons/workflow/FileAdd";
-import React, { InputHTMLAttributes } from "react";
+import { InputHTMLAttributes } from "react";
 import { useDropzone } from "react-dropzone";
 
 type Props = Pick<InputHTMLAttributes<HTMLInputElement>, "accept"> & {

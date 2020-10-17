@@ -1,5 +1,5 @@
 import { Text } from "@adobe/react-spectrum";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import type { PdfParser } from "../../pdf-parser";
 import Centerize from "../shared/Centerize";
 import Image from "../shared/Image";

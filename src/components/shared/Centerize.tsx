@@ -1,5 +1,5 @@
 import { Grid } from "@adobe/react-spectrum";
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 
 type Props = {
   children: ReactNode;
