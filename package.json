@@ -5,6 +5,8 @@
     "directory-check": "npx destiny 'src/components/*'",
     "postinstall": "rm -rf public/pdfjs-dist && mkdir -p public/pdfjs-dist && cp -r node_modules/pdfjs-dist/{build,cmaps} public/pdfjs-dist/",
     "start": "next start",
+    "test": "jest",
+    "test:debug": "PWDEBUG=1 jest",
     "type-check": "tsc"
   },
   "dependencies": {
@@ -29,6 +31,8 @@
     "@types/react-dom": "^17.0.0",
     "@types/uuid": "^8.3.0",
     "@zeit/next-css": "^1.0.1",
+    "jest": "^26.6.3",
+    "jest-playwright-preset": "^1.4.2",
     "next-compose-plugins": "^2.2.1",
     "next-transpile-modules": "^4.1.0",
     "playwright": "^1.6.2",
