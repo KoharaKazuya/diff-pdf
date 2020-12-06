@@ -9,15 +9,15 @@
     "cypress:open": "cypress open"
   },
   "dependencies": {
-    "@adobe/react-spectrum": "^3.3.0",
+    "@adobe/react-spectrum": "^3.6.0",
     "@spectrum-icons/workflow": "^3.1.0",
     "funcable": "^0.1.0",
     "idb": "^5.0.6",
-    "next": "^9.5.5",
+    "next": "^10.0.3",
     "pdfjs-dist": "^2.5.207",
     "pixelmatch": "^5.2.1",
-    "react": "^16.14.0",
-    "react-dom": "^16.14.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "react-dropzone": "^11.2.0",
     "sanitize.css": "^12.0.1",
     "uuid": "^8.3.0"
@@ -26,15 +26,15 @@
     "@types/node": "^14.11.2",
     "@types/pdfjs-dist": "^2.1.5",
     "@types/pixelmatch": "^5.2.2",
-    "@types/react": "^16.9.49",
-    "@types/react-dom": "^16.9.8",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
     "@types/uuid": "^8.3.0",
     "@zeit/next-css": "^1.0.1",
     "cypress": "^5.3.0",
     "cypress-file-upload": "^4.1.1",
-    "next-compose-plugins": "^2.2.0",
+    "next-compose-plugins": "^2.2.1",
     "next-transpile-modules": "^4.1.0",
-    "typescript": "4.0",
+    "typescript": "^4.1.2",
     "worker-plugin": "^5.0.0"
   }
 }
