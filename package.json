@@ -5,8 +5,7 @@
     "directory-check": "npx destiny 'src/components/*'",
     "postinstall": "rm -rf public/pdfjs-dist && mkdir -p public/pdfjs-dist && cp -r node_modules/pdfjs-dist/{build,cmaps} public/pdfjs-dist/",
     "start": "next start",
-    "type-check": "tsc",
-    "cypress:open": "cypress open"
+    "type-check": "tsc"
   },
   "dependencies": {
     "@adobe/react-spectrum": "^3.6.0",
@@ -30,8 +29,6 @@
     "@types/react-dom": "^17.0.0",
     "@types/uuid": "^8.3.0",
     "@zeit/next-css": "^1.0.1",
-    "cypress": "^5.3.0",
-    "cypress-file-upload": "^4.1.1",
     "next-compose-plugins": "^2.2.1",
     "next-transpile-modules": "^4.1.0",
     "typescript": "^4.1.2",
