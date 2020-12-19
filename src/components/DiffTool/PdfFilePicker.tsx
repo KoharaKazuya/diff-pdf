@@ -20,6 +20,7 @@ export default function PdfFilePicker({ onPick }: Props) {
         label="以前に使用したファイルを選択"
         selectedKey={selectedPdfId}
         onSelectionChange={onSelectionChange}
+        margin="size-100"
       >
         {pdfs.map((pdf) => (
           <Item key={pdf.id} textValue={`${pdf.name} - ${pdf.registeredAt}`}>

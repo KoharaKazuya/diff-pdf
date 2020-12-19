@@ -1,4 +1,4 @@
-import { Text, View } from "@adobe/react-spectrum";
+import { Flex, Text } from "@adobe/react-spectrum";
 import FileAdd from "@spectrum-icons/workflow/FileAdd";
 import type { InputHTMLAttributes } from "react";
 import { useDropzone } from "react-dropzone";
@@ -15,14 +15,19 @@ export default function InputFile({ accept, onAccept }: Props) {
   return (
     <div {...getRootProps()}>
       <input accept={accept} {...getInputProps()} />
-      <View padding="size-100">
-        <FileAdd />
+      <Flex
+        height="size-6000"
+        alignItems="center"
+        justifyContent="center"
+        margin="size-100"
+      >
+        <FileAdd flex="0 0 auto" />
         <Text marginStart="size-50">
           {isDragActive
             ? "ここにファイルをドロップ"
             : "ここにファイルをドラッグ＆ドロップするか、クリックしてファイルを選択してください"}
         </Text>
-      </View>
+      </Flex>
     </div>
   );
 }
