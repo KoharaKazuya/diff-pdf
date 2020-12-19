@@ -1,13 +1,13 @@
 import Head from "next/head";
-import DiffTool from "../components/DiffTool";
+import About from "../components/About";
 
 export default function Home() {
   return (
     <>
       <Head>
-        <title>Diff PDF</title>
+        <title>このサイトについて - Diff PDF</title>
       </Head>
-      <DiffTool />
+      <About />
     </>
   );
 }
