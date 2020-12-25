@@ -1,32 +1,26 @@
 import { Text } from "@adobe/react-spectrum";
-import { useEffect, useState } from "react";
+import { useAsync } from "react-async-hook";
 import type { PdfParser } from "../../pdf-parser";
-import Centerize from "../shared/Centerize";
-import Image from "../shared/Image";
+import Image from "../Image";
 
 type Props = {
   parser: PdfParser;
   index: number;
 };
 
-export function PdfPage({ parser, index }: Props) {
-  const [image, setImage] = useState<ImageData>();
+export default function PdfPage({ parser, index }: Props) {
+  const { result: image } = useAsync(renderImage, [parser, index]);
 
-  useEffect(() => {
-    parser
-      .parse()
-      .then((doc) => doc.getPage(index))
-      .then((page) => page.render())
-      .then((image) => setImage(image));
-  }, [parser, index]);
-
-  return (
-    <Centerize>
-      {image ? (
-        <Image data={image} aria-label={`PDF page ${index}`} />
-      ) : (
-        <Text>Loading...</Text>
-      )}
-    </Centerize>
+  return image ? (
+    <Image data={image} aria-label={`PDF page ${index}`} />
+  ) : (
+    <Text>Loading...</Text>
   );
+}
+
+async function renderImage(parser: PdfParser, index: number) {
+  const doc = await parser.parse();
+  const page = await doc.getPage(index);
+  const image = await page.render();
+  return image;
 }

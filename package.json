@@ -2,7 +2,6 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
-    "directory-check": "npx destiny 'src/components/*'",
     "postinstall": "rm -rf public/pdfjs-dist && mkdir -p public/pdfjs-dist && cp -r node_modules/pdfjs-dist/{build,cmaps} public/pdfjs-dist/",
     "start": "next start",
     "test": "jest",
@@ -12,12 +11,14 @@
   "dependencies": {
     "@adobe/react-spectrum": "^3.6.0",
     "@spectrum-icons/workflow": "^3.1.0",
+    "constate": "^3.1.0",
     "funcable": "^0.1.0",
     "idb": "^5.0.6",
     "next": "^10.0.3",
     "pdfjs-dist": "^2.5.207",
     "pixelmatch": "^5.2.1",
     "react": "^17.0.1",
+    "react-async-hook": "^3.6.2",
     "react-dom": "^17.0.1",
     "react-dropzone": "^11.2.0",
     "sanitize.css": "^12.0.1",

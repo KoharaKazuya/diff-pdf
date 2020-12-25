@@ -1,8 +1,8 @@
 import { Item, Picker, Text, View } from "@adobe/react-spectrum";
 import { Key, useEffect, useReducer, useState } from "react";
-import type { PdfFileMeta } from "../../pdf-storage";
-import InputFile from "./InputFile";
-import { usePdfStorageContext } from "./PdfStorageProvider";
+import { usePdfStorage } from "../../../features/pdf-storage";
+import type { PdfFileMeta } from "../../../pdf-storage";
+import InputFile from "./PdfFilePicker/InputFile";
 
 type Props = {
   onPick?: (file: File) => void;
@@ -39,7 +39,7 @@ function usePdfSelection(onPick: Props["onPick"]) {
     PdfFileMeta["id"] | undefined
   >(undefined);
   const [updator, forceUpdate] = useReducer((s) => s + 1, 0);
-  const storage = usePdfStorageContext();
+  const storage = usePdfStorage();
 
   useEffect(() => {
     storage.getAll().then((pdfs) => setPdfs(pdfs));
