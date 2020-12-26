@@ -2,26 +2,48 @@ import constate from "constate";
 import { useEffect, useMemo, useState } from "react";
 import { useAsync } from "react-async-hook";
 import { comparePDFs, PagePair } from "../comparator";
-import { PdfParser } from "../pdf-parser";
+import type { PdfParser } from "../pdf-parser";
 import { range } from "../utils/range";
+
+let pdfParserModule: Promise<typeof import("../pdf-parser")> | undefined;
+function fetchPdfParserModule() {
+  if (!pdfParserModule)
+    pdfParserModule = import(/* webpackPrefetch: true */ "../pdf-parser");
+  return pdfParserModule;
+}
+async function getPdfParserInstance(file: File | undefined) {
+  if (!file) return;
+  const { PdfParser } = await fetchPdfParserModule();
+  return new PdfParser(file);
+}
 
 function useFile(): [File | undefined, (file: File) => void] {
   return useState<File>();
 }
 
-export const [PdfFileLProvider, useSetPdfFileL, usePdfParserL] = constate(
+export const [PdfFileLProvider, useSetPdfFileL, usePdfFileL] = constate(
   useFile,
   ([, setFile]: ReturnType<typeof useFile>) => setFile,
-  ([file]: ReturnType<typeof useFile>) =>
-    file ? new PdfParser(file) : undefined
+  ([file]: ReturnType<typeof useFile>) => file
 );
 
-export const [PdfFileRProvider, useSetPdfFileR, usePdfParserR] = constate(
+export function usePdfParserL() {
+  const file = usePdfFileL();
+  const { result } = useAsync(getPdfParserInstance, [file]);
+  return result;
+}
+
+export const [PdfFileRProvider, useSetPdfFileR, usePdfFileR] = constate(
   useFile,
   ([, setFile]: ReturnType<typeof useFile>) => setFile,
-  ([file]: ReturnType<typeof useFile>) =>
-    file ? new PdfParser(file) : undefined
+  ([file]: ReturnType<typeof useFile>) => file
 );
+
+export function usePdfParserR() {
+  const file = usePdfFileR();
+  const { result } = useAsync(getPdfParserInstance, [file]);
+  return result;
+}
 
 function useIsDiffPagesOnly() {
   return useState(false);
