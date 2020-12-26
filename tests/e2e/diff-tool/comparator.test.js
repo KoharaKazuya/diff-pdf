@@ -1,4 +1,8 @@
-const { baseURL, attachPDF } = require("../../lib/page");
+const { baseURL, initialize, attachPDF } = require("../../lib/page");
+
+beforeAll(async () => {
+  await initialize();
+});
 
 describe("PDF ファイルの比較ロジック", () => {
   beforeEach(async () => {

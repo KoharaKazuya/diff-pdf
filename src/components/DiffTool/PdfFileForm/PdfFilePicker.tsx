@@ -1,8 +1,8 @@
 import { Item, Picker, Text, View } from "@adobe/react-spectrum";
 import { Key, useEffect, useState } from "react";
 import { useAsync } from "react-async-hook";
-import { usePdfStorage } from "../../../features/pdf-storage";
-import type { PdfFileMeta, PdfStorage } from "../../../pdf-storage";
+import type { BrowserStorage, PdfFileMeta } from "../../../browser-storage";
+import { useBrowserStorage } from "../../../features/browser-storage";
 import InputFile from "./PdfFilePicker/InputFile";
 
 type Props = {
@@ -38,13 +38,13 @@ export default function PdfFilePicker({ onPick }: Props) {
 
 function usePdfSelection(onPick: Props["onPick"]) {
   const [selectedPdfId, setSelectedPdfId] = useState<PdfFileMeta["id"]>();
-  const storage = usePdfStorage();
+  const storage = useBrowserStorage();
 
   const onAccept = (files: File[]) => {
     const file = files[0];
     if (!file) return;
     onPick?.(file);
-    storage.add(file).then((id) => {
+    storage.addPdfFile(file).then((id) => {
       setSelectedPdfId(id);
     });
   };
@@ -53,20 +53,20 @@ function usePdfSelection(onPick: Props["onPick"]) {
   const onSelectionChange = (key: Key) => {
     const meta = pdfs?.find((pdf) => String(pdf.id) === String(key));
     setSelectedPdfId(meta?.id);
-    if (meta) storage.get(meta.id).then((file) => onPick?.(file));
+    if (meta) storage.getPdfFile(meta.id).then((file) => onPick?.(file));
   };
 
   return [pdfs, onAccept, selectedPdfId, onSelectionChange] as const;
 }
 
 function usePDFs() {
-  const storage = usePdfStorage();
+  const storage = useBrowserStorage();
 
   const { result, execute } = useAsync(getPDFs, [storage]);
 
   useEffect(
     () =>
-      storage.onChange(() => {
+      storage.onChangePdf(() => {
         execute(storage);
       }),
     [storage]
@@ -75,6 +75,6 @@ function usePDFs() {
   return result;
 }
 
-async function getPDFs(storage: PdfStorage) {
-  return await storage.getAll();
+async function getPDFs(storage: BrowserStorage) {
+  return await storage.getAllPdfFiles();
 }

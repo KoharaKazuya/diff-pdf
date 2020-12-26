@@ -1,4 +1,8 @@
-const { baseURL, attachPDF } = require("../../lib/page");
+const { baseURL, initialize, attachPDF } = require("../../lib/page");
+
+beforeAll(async () => {
+  await initialize();
+});
 
 describe("PDF ファイルを選択する Picker 部分", () => {
   beforeEach(async () => {

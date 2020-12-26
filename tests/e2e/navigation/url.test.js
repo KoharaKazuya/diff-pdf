@@ -1,9 +1,13 @@
-const { baseURL } = require("../../lib/page");
+const { baseURL, initialize } = require("../../lib/page");
+
+beforeAll(async () => {
+  await initialize();
+});
 
 describe("URL による画面遷移", () => {
   const data = {
     "/": "text=ここにファイルを",
-    "/about": "text=2つの PDF を画像比較し、差分を強調表示するツールです。",
+    "/about": "text=このサイトは2つの PDF を画像比較し、差分を強調表示します。",
   };
 
   for (const [path, selector] of Object.entries(data)) {
