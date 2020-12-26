@@ -59,13 +59,23 @@ function pairPages(
   parserL: PdfParser | undefined,
   parserR: PdfParser | undefined
 ) {
-  return pairs.map((pair, i) => (
-    <PageFrame key={`${parserL?.id}-${parserR?.id}-${i}`}>
-      {"diff" in pair ? (
-        <Image data={pair.diff} aria-label="PDF page difference" />
-      ) : (
-        <NoMatch />
-      )}
-    </PageFrame>
-  ));
+  return pairs.map((pair, i) => {
+    const label =
+      "score" in pair ? (pair.score === 1 ? "一致" : "差分") : undefined;
+    return (
+      <PageFrame
+        key={`${parserL?.id}-${parserR?.id}-${i}`}
+        label={label}
+        frameColor={
+          label === "一致" ? "green" : label === "差分" ? "red" : "gray"
+        }
+      >
+        {"diff" in pair ? (
+          <Image data={pair.diff} aria-label="PDF page difference" />
+        ) : (
+          <NoMatch />
+        )}
+      </PageFrame>
+    );
+  });
 }

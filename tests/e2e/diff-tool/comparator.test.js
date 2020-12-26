@@ -11,4 +11,12 @@ describe("PDF ファイルの比較ロジック", () => {
 
     await page.waitForSelector('[aria-label="PDF page difference"]');
   });
+
+  it("比較結果として一致かそうでないかがテキストとして表示される", async () => {
+    await attachPDF("left", "2020.pdf");
+    await attachPDF("right", "2021.pdf");
+
+    await page.waitForSelector('"一致"');
+    await page.waitForSelector('"差分"');
+  });
 });
