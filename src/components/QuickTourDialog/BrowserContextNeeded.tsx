@@ -7,8 +7,8 @@ import {
   Divider,
   Heading,
 } from "@adobe/react-spectrum";
-import { useCompleteQuickTour } from "../../../features/user-settings";
-import SiteDescription from "../../SiteDescription";
+import { useCompleteQuickTour } from "../../features/user-settings";
+import SiteDescription from "../SiteDescription";
 
 export default function BrowserContextNeeded() {
   const complete = useCompleteQuickTour();

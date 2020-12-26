@@ -1,6 +1,6 @@
 import { Content, Dialog, DialogContainer } from "@adobe/react-spectrum";
 import type { ReactNode } from "react";
-import Centerize from "../../Centerize";
+import Centerize from "../../../Centerize";
 
 type Props = {
   onDismiss?: () => void;

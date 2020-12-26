@@ -1,4 +1,7 @@
 const withPlugins = require("next-compose-plugins");
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
 const withCSS = require("@zeit/next-css");
 const withTM = require("next-transpile-modules")([
   "@adobe/react-spectrum",
@@ -7,7 +10,7 @@ const withTM = require("next-transpile-modules")([
 ]);
 const WorkerPlugin = require("worker-plugin");
 
-module.exports = withPlugins([withCSS, withTM], {
+module.exports = withPlugins([withBundleAnalyzer, withCSS, withTM], {
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     if (!isServer) {
       config.plugins.push(

@@ -2,7 +2,7 @@ import dynamic from "next/dynamic";
 import { useQuickTourCompleted } from "../features/user-settings";
 
 const LazyDialog = dynamic(
-  () => import("./DiffTool/QuickTourDialog/BrowserContextNeeded"),
+  () => import("./QuickTourDialog/BrowserContextNeeded"),
   { ssr: false }
 );
 

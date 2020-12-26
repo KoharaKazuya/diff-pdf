@@ -1,7 +1,7 @@
 import { usePress } from "@react-aria/interactions";
 import dynamic from "next/dynamic";
 import { ReactNode, useState } from "react";
-import Centerize from "../Centerize";
+import Centerize from "../../Centerize";
 
 const LazyImageDialog = dynamic(
   () => import(/* webpackPrefetch: true */ "./PageFrame/ImageDialog"),

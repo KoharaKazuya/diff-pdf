@@ -1,7 +1,7 @@
 import { Text } from "@adobe/react-spectrum";
 import { useAsync } from "react-async-hook";
-import type { PdfParser } from "../../pdf-parser";
-import Image from "../Image";
+import type { PdfParser } from "../../../pdf-parser";
+import Image from "../../Image";
 
 type Props = {
   parser: PdfParser;
