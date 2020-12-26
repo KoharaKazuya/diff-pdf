@@ -23,4 +23,17 @@ describe("PDF ファイルを選択する Picker 部分", () => {
 
     await page.waitForSelector('"2020.pdf"');
   });
+
+  it("ファイルを選択するとそのファイルのファイル名が表示される", async () => {
+    await attachPDF("left", "2020.pdf");
+
+    await page.waitForSelector('"2020.pdf"');
+  });
+
+  it("左でファイルを追加すると、右のドロップダウンにも選択肢が追加される", async () => {
+    await attachPDF("left", "2020.pdf");
+    await page.click('(//*[@aria-haspopup="listbox"])[2]');
+
+    await page.waitForSelector('"2020.pdf"');
+  });
 });

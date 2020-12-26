@@ -1,4 +1,5 @@
 import { DBSchema, IDBPDatabase, openDB, StoreKey } from "idb";
+import mitt from "mitt";
 
 export interface PdfFileMeta {
   id: number;
@@ -20,6 +21,7 @@ interface Schema extends DBSchema {
 
 export class PdfStorage {
   private dbCache: IDBPDatabase<Schema> | undefined;
+  private emitter = mitt();
 
   private async setupDB() {
     if (!this.dbCache)
@@ -43,6 +45,9 @@ export class PdfStorage {
       registeredAt: new Date(),
     });
     await tx.done;
+
+    this.emitter.emit("change");
+
     return key;
   }
 
@@ -57,5 +62,10 @@ export class PdfStorage {
     const file = await db.get("files", id);
     if (!file) throw new Error("no such file: id=" + id);
     return file;
+  }
+
+  public onChange(listener: () => void): () => void {
+    this.emitter.on("change", listener);
+    return () => this.emitter.off("change", listener);
   }
 }

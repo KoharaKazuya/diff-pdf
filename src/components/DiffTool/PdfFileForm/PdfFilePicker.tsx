@@ -1,7 +1,8 @@
 import { Item, Picker, Text, View } from "@adobe/react-spectrum";
-import { Key, useEffect, useReducer, useState } from "react";
+import { Key, useEffect, useState } from "react";
+import { useAsync } from "react-async-hook";
 import { usePdfStorage } from "../../../features/pdf-storage";
-import type { PdfFileMeta } from "../../../pdf-storage";
+import type { PdfFileMeta, PdfStorage } from "../../../pdf-storage";
 import InputFile from "./PdfFilePicker/InputFile";
 
 type Props = {
@@ -15,35 +16,29 @@ export default function PdfFilePicker({ onPick }: Props) {
 
   return (
     <View>
-      <InputFile accept=".pdf,application/pdf" onAccept={onAccept} />
       <Picker
-        label="以前に使用したファイルを選択"
-        selectedKey={selectedPdfId}
+        label="ファイルを選択"
+        items={pdfs ?? []}
+        isLoading={!pdfs}
+        selectedKey={String(selectedPdfId)}
         onSelectionChange={onSelectionChange}
         margin="size-100"
       >
-        {pdfs.map((pdf) => (
+        {(pdf) => (
           <Item key={pdf.id} textValue={`${pdf.name} - ${pdf.registeredAt}`}>
             <Text>{pdf.name}</Text>
             <Text slot="description">{pdf.registeredAt.toLocaleString()}</Text>
           </Item>
-        ))}
+        )}
       </Picker>
+      <InputFile accept=".pdf,application/pdf" onAccept={onAccept} />
     </View>
   );
 }
 
 function usePdfSelection(onPick: Props["onPick"]) {
-  const [pdfs, setPdfs] = useState<PdfFileMeta[]>([]);
-  const [selectedPdfId, setSelectedPdfId] = useState<
-    PdfFileMeta["id"] | undefined
-  >(undefined);
-  const [updator, forceUpdate] = useReducer((s) => s + 1, 0);
+  const [selectedPdfId, setSelectedPdfId] = useState<PdfFileMeta["id"]>();
   const storage = usePdfStorage();
-
-  useEffect(() => {
-    storage.getAll().then((pdfs) => setPdfs(pdfs));
-  }, [storage, updator]);
 
   const onAccept = (files: File[]) => {
     const file = files[0];
@@ -51,15 +46,35 @@ function usePdfSelection(onPick: Props["onPick"]) {
     onPick?.(file);
     storage.add(file).then((id) => {
       setSelectedPdfId(id);
-      forceUpdate();
     });
   };
 
+  const pdfs = usePDFs();
   const onSelectionChange = (key: Key) => {
-    const meta = pdfs.find((pdf) => String(pdf.id) === String(key));
+    const meta = pdfs?.find((pdf) => String(pdf.id) === String(key));
     setSelectedPdfId(meta?.id);
     if (meta) storage.get(meta.id).then((file) => onPick?.(file));
   };
 
   return [pdfs, onAccept, selectedPdfId, onSelectionChange] as const;
+}
+
+function usePDFs() {
+  const storage = usePdfStorage();
+
+  const { result, execute } = useAsync(getPDFs, [storage]);
+
+  useEffect(
+    () =>
+      storage.onChange(() => {
+        execute(storage);
+      }),
+    [storage]
+  );
+
+  return result;
+}
+
+async function getPDFs(storage: PdfStorage) {
+  return await storage.getAll();
 }

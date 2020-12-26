@@ -16,16 +16,17 @@ export default function InputFile({ accept, onAccept }: Props) {
     <div {...getRootProps()}>
       <input accept={accept} {...getInputProps()} />
       <Flex
-        height="size-6000"
+        height="size-3000"
         alignItems="center"
         justifyContent="center"
+        gap="size-100"
         margin="size-100"
       >
         <FileAdd flex="0 0 auto" />
         <Text marginStart="size-50">
           {isDragActive
             ? "ここにファイルをドロップ"
-            : "ここにファイルをドラッグ＆ドロップするか、クリックしてファイルを選択してください"}
+            : "新しくファイルを追加するには、ここにファイルをドラッグ＆ドロップするか、クリックしてファイルを選択してください"}
         </Text>
       </Flex>
     </div>
