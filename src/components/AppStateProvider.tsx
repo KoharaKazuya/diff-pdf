@@ -1,5 +1,9 @@
 import type { ReactNode } from "react";
-import { PdfFileLProvider, PdfFileRProvider } from "../features/diff-tool";
+import {
+  IsDiffPagesOnlyProvider,
+  PdfFileLProvider,
+  PdfFileRProvider,
+} from "../features/diff-tool";
 import { PdfStorageProvider } from "../features/pdf-storage";
 
 type Props = {
@@ -10,7 +14,9 @@ export default function AppStateProvider({ children }: Props) {
   return (
     <PdfStorageProvider>
       <PdfFileLProvider>
-        <PdfFileRProvider>{children}</PdfFileRProvider>
+        <PdfFileRProvider>
+          <IsDiffPagesOnlyProvider>{children}</IsDiffPagesOnlyProvider>
+        </PdfFileRProvider>
       </PdfFileLProvider>
     </PdfStorageProvider>
   );

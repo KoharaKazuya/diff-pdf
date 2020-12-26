@@ -3,7 +3,7 @@ import { Text } from "@adobe/react-spectrum";
 export default function NoMatch() {
   return (
     <Text UNSAFE_style={{ color: "var(--spectrum-global-color-gray-700)" }}>
-      No Match
+      N/A
     </Text>
   );
 }

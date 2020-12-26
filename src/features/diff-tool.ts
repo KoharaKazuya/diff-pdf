@@ -23,56 +23,72 @@ export const [PdfFileRProvider, useSetPdfFileR, usePdfParserR] = constate(
     file ? new PdfParser(file) : undefined
 );
 
-export function usePagePairs(): PagePair[] {
+function useIsDiffPagesOnly() {
+  return useState(false);
+}
+
+export const [IsDiffPagesOnlyProvider, useDiffPagesOnlyState] = constate(
+  useIsDiffPagesOnly
+);
+
+export function usePagePairs(): PagePair[] | undefined {
   const parserL = usePdfParserL();
   const parserR = usePdfParserR();
 
-  const [pagePairs, setPagePairs] = useState<PagePair[]>([]);
+  const [pagePairs, setPagePairs] = useState<PagePair[]>();
 
   useEffect(() => {
     if (!parserL || !parserR) return;
-    setPagePairs([]);
+    let pairs: PagePair[] = [];
+    setPagePairs(pairs);
     (async () => {
       for await (const r of comparePDFs(parserL, parserR)) {
-        setPagePairs((s) => [...s, r]);
+        pairs = [...pairs, r];
+        setPagePairs(pairs);
       }
     })();
   }, [parserL, parserR]);
 
-  return pagePairs;
+  const [isDiffPagesOnly] = useDiffPagesOnlyState();
+  const filteredPagePairs = useMemo(
+    () =>
+      isDiffPagesOnly
+        ? pagePairs?.filter((pair) => !("score" in pair) || pair.score !== 1)
+        : pagePairs,
+    [pagePairs, isDiffPagesOnly]
+  );
+
+  return filteredPagePairs;
 }
 
 function usePages(
   parser: PdfParser | undefined,
-  pairedPages: (number | undefined)[]
+  pairedPages: (number | undefined)[] | undefined
 ): (number | undefined)[] {
-  const { result: pages } = useAsync(renderPages, [parser, pairedPages]);
-  return pages ?? [];
+  const { result } = useAsync(getPages, [parser, pairedPages]);
+  return result ?? [];
 }
-async function renderPages(
+async function getPages(
   parser: PdfParser | undefined,
-  pairedPages: (number | undefined)[]
+  pairedPages: (number | undefined)[] | undefined
 ) {
-  if (!parser) return;
+  if (!parser) return [];
+  if (pairedPages) return pairedPages;
   const doc = await parser.parse();
-  const maxPairedPage = pairedPages.reduce<number>(
-    (m, p) => (p ? Math.max(m, p) : m),
-    -Infinity
-  );
-  const restPages = range(Math.max(1, maxPairedPage + 1), doc.numPages + 1);
-  return [...pairedPages, ...restPages];
+  const pageNum = doc.numPages;
+  return range(1, pageNum + 1);
 }
 export function usePagesL() {
   const pagePairs = usePagePairs();
   return usePages(
     usePdfParserL(),
-    useMemo(() => pagePairs.map((p) => p.left), [pagePairs])
+    useMemo(() => pagePairs?.map((p) => p.left), [pagePairs])
   );
 }
 export function usePagesR() {
   const pagePairs = usePagePairs();
   return usePages(
     usePdfParserR(),
-    useMemo(() => pagePairs.map((p) => p.right), [pagePairs])
+    useMemo(() => pagePairs?.map((p) => p.right), [pagePairs])
   );
 }

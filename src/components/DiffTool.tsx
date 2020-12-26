@@ -8,6 +8,7 @@ import {
   usePdfParserR,
 } from "../features/diff-tool";
 import type { PdfParser } from "../pdf-parser";
+import DiffPagesOnlySwitch from "./DiffTool/DiffPagesOnlySwitch";
 import GridTable from "./DiffTool/GridTable";
 import NoMatch from "./DiffTool/NoMatch";
 import PageFrame from "./DiffTool/PageFrame";
@@ -27,6 +28,7 @@ export default function DiffTool() {
   return (
     <>
       <PdfFileForm />
+      <DiffPagesOnlySwitch />
       <GridTable
         left={parserPages(parserL, pagesL)}
         center={pairPages(pagePairs, parserL, parserR)}
@@ -55,11 +57,11 @@ function parserPages(
 }
 
 function pairPages(
-  pairs: PagePair[],
+  pairs: PagePair[] | undefined,
   parserL: PdfParser | undefined,
   parserR: PdfParser | undefined
 ) {
-  return pairs.map((pair, i) => {
+  return (pairs ?? []).map((pair, i) => {
     const label =
       "score" in pair ? (pair.score === 1 ? "一致" : "差分") : undefined;
     return (
