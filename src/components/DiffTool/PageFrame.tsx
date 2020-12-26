@@ -1,5 +1,12 @@
-import type { ReactNode } from "react";
+import { usePress } from "@react-aria/interactions";
+import dynamic from "next/dynamic";
+import { ReactNode, useState } from "react";
 import Centerize from "../Centerize";
+
+const LazyImageDialog = dynamic(
+  () => import(/* webpackPrefetch: true */ "./PageFrame/ImageDialog"),
+  { ssr: false }
+);
 
 type Props = {
   children: ReactNode;
@@ -12,8 +19,40 @@ export default function PageFrame({
   label,
   frameColor = "gray",
 }: Props) {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <>
+      <PressableFrame
+        onPress={() => setIsOpen((s) => !s)}
+        frameColor={frameColor}
+      >
+        {label && (
+          <PageFrameLabel frameColor={frameColor}>{label}</PageFrameLabel>
+        )}
+        <Centerize>{children}</Centerize>
+      </PressableFrame>
+      {isOpen && (
+        <LazyImageDialog onDismiss={() => setIsOpen(false)}>
+          {children}
+        </LazyImageDialog>
+      )}
+    </>
+  );
+}
+
+function PressableFrame({
+  onPress,
+  children,
+  frameColor,
+}: {
+  onPress: () => void;
+  children: ReactNode;
+  frameColor: Props["frameColor"];
+}) {
+  const { pressProps } = usePress({ onPress });
   return (
     <div
+      {...pressProps}
       style={{
         width: "100%",
         height: "100%",
@@ -21,10 +60,7 @@ export default function PageFrame({
         position: "relative",
       }}
     >
-      {label && (
-        <PageFrameLabel frameColor={frameColor}>{label}</PageFrameLabel>
-      )}
-      <Centerize>{children}</Centerize>
+      {children}
     </div>
   );
 }
