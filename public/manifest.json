@@ -1,0 +1,21 @@
+{
+  "name": "Diff PDF",
+  "short_name": "Diff PDF",
+  "description": "Diff PDF は2つの PDF を画像比較し、差分を強調表示します。",
+  "lang": "ja",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#933",
+  "icons": [
+    {
+      "src": "icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

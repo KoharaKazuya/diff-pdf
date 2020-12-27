@@ -23,6 +23,8 @@ export default class MyDocument extends Document {
       <Html lang="ja">
         <Head>
           <meta httpEquiv="Content-Security-Policy" content={csp} />
+          <link rel="icon" href="/icon.svg" type="image/svg+xml" sizes="any" />
+          <link rel="manifest" href="/manifest.json" />
         </Head>
         <body>
           <Main />

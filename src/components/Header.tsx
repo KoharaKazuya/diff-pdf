@@ -6,12 +6,12 @@ export default function Header() {
     <SpectrumHeader>
       <Flex marginStart="size-200" gap="size-200" alignItems="baseline">
         <Link href="/">
-          <a>
+          <a style={{ color: "#933", textDecoration: "none" }}>
             <Heading level={1}>Diff PDF</Heading>
           </a>
         </Link>
         <Link href="/about">
-          <a>About</a>
+          <a style={{ color: "#933", textDecoration: "none" }}>About</a>
         </Link>
       </Flex>
     </SpectrumHeader>
