@@ -2,8 +2,11 @@ import type { ReactNode } from "react";
 import { BrowserStorageProvider } from "../features/browser-storage";
 import {
   IsDiffPagesOnlyProvider,
+  PagePairsProvider,
   PdfFileLProvider,
   PdfFileRProvider,
+  PdfParserLProvider,
+  PdfParserRProvider,
 } from "../features/diff-tool";
 import { UserSettingsProvider } from "../features/user-settings";
 
@@ -17,7 +20,13 @@ export default function AppStateProvider({ children }: Props) {
       <UserSettingsProvider>
         <PdfFileLProvider>
           <PdfFileRProvider>
-            <IsDiffPagesOnlyProvider>{children}</IsDiffPagesOnlyProvider>
+            <PdfParserLProvider>
+              <PdfParserRProvider>
+                <IsDiffPagesOnlyProvider>
+                  <PagePairsProvider>{children}</PagePairsProvider>
+                </IsDiffPagesOnlyProvider>
+              </PdfParserRProvider>
+            </PdfParserLProvider>
           </PdfFileRProvider>
         </PdfFileLProvider>
       </UserSettingsProvider>

@@ -27,11 +27,12 @@ export const [PdfFileLProvider, useSetPdfFileL, usePdfFileL] = constate(
   ([file]: ReturnType<typeof useFile>) => file
 );
 
-export function usePdfParserL() {
+function usePdfParserLInner() {
   const file = usePdfFileL();
   const { result } = useAsync(getPdfParserInstance, [file]);
   return result;
 }
+export const [PdfParserLProvider, usePdfParserL] = constate(usePdfParserLInner);
 
 export const [PdfFileRProvider, useSetPdfFileR, usePdfFileR] = constate(
   useFile,
@@ -39,21 +40,21 @@ export const [PdfFileRProvider, useSetPdfFileR, usePdfFileR] = constate(
   ([file]: ReturnType<typeof useFile>) => file
 );
 
-export function usePdfParserR() {
+function usePdfParserRInner() {
   const file = usePdfFileR();
   const { result } = useAsync(getPdfParserInstance, [file]);
   return result;
 }
+export const [PdfParserRProvider, usePdfParserR] = constate(usePdfParserRInner);
 
 function useIsDiffPagesOnly() {
   return useState(false);
 }
-
 export const [IsDiffPagesOnlyProvider, useDiffPagesOnlyState] = constate(
   useIsDiffPagesOnly
 );
 
-export function usePagePairs(): PagePair[] | undefined {
+function usePagePairsInner(): PagePair[] | undefined {
   const parserL = usePdfParserL();
   const parserR = usePdfParserR();
 
@@ -82,6 +83,7 @@ export function usePagePairs(): PagePair[] | undefined {
 
   return filteredPagePairs;
 }
+export const [PagePairsProvider, usePagePairs] = constate(usePagePairsInner);
 
 function usePages(
   parser: PdfParser | undefined,
