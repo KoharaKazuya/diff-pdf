@@ -20,7 +20,7 @@ export default function SiteDescription() {
       <section>
         <Heading level={3}>対応ブラウザ</Heading>
         <p>
-          サポートしているブラウザは Google Chrome の最新版です。
+          サポートしているブラウザは Chrome, Firefox の最新版です。
           それ以外のブラウザでは動かない可能性があります。
         </p>
       </section>

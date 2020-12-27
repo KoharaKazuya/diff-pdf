@@ -52,8 +52,8 @@ export class PdfPage implements Page {
       const viewport = this.page.getViewport({ scale: 1 });
       const { width, height } = viewport;
 
-      const offscreen = new OffscreenCanvas(width, height);
-      const ctx = offscreen.getContext("2d");
+      const canvas = createCanvas(width, height);
+      const ctx = canvas.getContext("2d");
       if (!ctx) throw new Error("cannot get 2d context from OffscreenCanvas");
 
       await this.page.render({
@@ -64,4 +64,14 @@ export class PdfPage implements Page {
       return ctx.getImageData(0, 0, width, height);
     })());
   }
+}
+
+function createCanvas(width: number, height: number) {
+  if (typeof OffscreenCanvas !== "undefined")
+    return new OffscreenCanvas(width, height);
+
+  const canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
+  return canvas;
 }
