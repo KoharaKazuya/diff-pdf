@@ -23,5 +23,8 @@ module.exports = {
       `(//input[@type="file"])[${side === "left" ? 1 : 2}]`,
       module.exports.fixturePath(file)
     );
+    await page.waitForSelector(
+      `(//*[@aria-haspopup="listbox"])[${side === "left" ? 1 : 2}] >> "${file}"`
+    );
   },
 };
