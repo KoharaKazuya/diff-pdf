@@ -76,5 +76,7 @@ function usePDFs() {
 }
 
 async function getPDFs(storage: BrowserStorage) {
-  return await storage.getAllPdfFiles();
+  const metas = await storage.getAllPdfFiles();
+  metas.reverse();
+  return metas;
 }

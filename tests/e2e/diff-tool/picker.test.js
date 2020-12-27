@@ -28,6 +28,15 @@ describe("PDF ファイルを選択する Picker 部分", () => {
     await page.waitForSelector('"2020.pdf"');
   });
 
+  it("履歴は 10 件までしか残らない", async () => {
+    for (let i = 0; i < 15; i++) {
+      await attachPDF("left", "1.pdf");
+    }
+    await page.click("[aria-haspopup=listbox]");
+
+    expect((await page.$$('[role=listbox] >> "1.pdf"')).length).toBe(10);
+  });
+
   it("ファイルを選択するとそのファイルのファイル名が表示される", async () => {
     await attachPDF("left", "2020.pdf");
 

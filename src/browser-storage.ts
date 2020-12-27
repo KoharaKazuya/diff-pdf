@@ -1,6 +1,8 @@
 import { DBSchema, IDBPDatabase, openDB, StoreKey } from "idb";
 import mitt from "mitt";
 
+const MAX_FILES = 10;
+
 export interface UserSettings {
   quickTourCompleted: boolean;
 }
@@ -78,13 +80,31 @@ export class BrowserStorage {
   public async addPdfFile(file: File): Promise<StoreKey<Schema, "files">> {
     const db = await this.setupDB();
     const tx = db.transaction(["file-metas", "files"], "readwrite");
-    const key = await tx.objectStore("files").add(file);
-    await tx.objectStore("file-metas").put({
+    const fileMetasStore = tx.objectStore("file-metas");
+    const filesStore = tx.objectStore("files");
+
+    // remove exceeded files
+    const count = await fileMetasStore.count();
+    if (count + 1 > MAX_FILES) {
+      const keys = await fileMetasStore.getAllKeys(
+        undefined,
+        count + 1 - MAX_FILES
+      );
+      await Promise.all([
+        ...keys.map((key) => fileMetasStore.delete(key)),
+        ...keys.map((key) => filesStore.delete(key)),
+      ]);
+    }
+
+    // add new file
+    const key = await filesStore.add(file);
+    await fileMetasStore.put({
       id: key,
       name: file.name,
       size: file.size,
       registeredAt: new Date(),
     });
+
     await tx.done;
 
     this.emitter.emit("pdfs");
