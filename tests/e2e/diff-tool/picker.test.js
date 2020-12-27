@@ -1,12 +1,12 @@
-const { baseURL, initialize, attachPDF } = require("../../lib/page");
+const { initialize, attachPDF } = require("../../lib/page");
 
 beforeAll(async () => {
-  await initialize();
+  await initialize({ quickTour: true });
 });
 
 describe("PDF ファイルを選択する Picker 部分", () => {
   beforeEach(async () => {
-    await page.goto(`${baseURL}/`);
+    await initialize();
   });
 
   it("初期状態では履歴が空", async () => {

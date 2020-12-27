@@ -1,7 +1,7 @@
 const { baseURL, initialize } = require("../../lib/page");
 
 beforeAll(async () => {
-  await initialize();
+  await initialize({ quickTour: true });
 });
 
 describe("URL による画面遷移", () => {

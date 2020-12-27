@@ -1,7 +1,7 @@
 import { Item, Picker, Text, View } from "@adobe/react-spectrum";
 import { Key, useEffect, useState } from "react";
 import { useAsync } from "react-async-hook";
-import type { BrowserStorage, PdfFileMeta } from "../../../browser-storage";
+import type { PdfFileMeta, Storage } from "../../../browser-storage";
 import { useBrowserStorage } from "../../../features/browser-storage";
 import InputFile from "./PdfFilePicker/InputFile";
 
@@ -44,7 +44,7 @@ function usePdfSelection(onPick: Props["onPick"]) {
     const file = files[0];
     if (!file) return;
     onPick?.(file);
-    storage.addPdfFile(file).then((id) => {
+    storage?.addPdfFile(file).then((id) => {
       setSelectedPdfId(id);
     });
   };
@@ -53,7 +53,7 @@ function usePdfSelection(onPick: Props["onPick"]) {
   const onSelectionChange = (key: Key) => {
     const meta = pdfs?.find((pdf) => String(pdf.id) === String(key));
     setSelectedPdfId(meta?.id);
-    if (meta) storage.getPdfFile(meta.id).then((file) => onPick?.(file));
+    if (meta) storage?.getPdfFile(meta.id).then((file) => onPick?.(file));
   };
 
   return [pdfs, onAccept, selectedPdfId, onSelectionChange] as const;
@@ -66,7 +66,7 @@ function usePDFs() {
 
   useEffect(
     () =>
-      storage.onChangePdf(() => {
+      storage?.onChangePdf(() => {
         execute(storage);
       }),
     [storage]
@@ -75,7 +75,8 @@ function usePDFs() {
   return result;
 }
 
-async function getPDFs(storage: BrowserStorage) {
+async function getPDFs(storage: Storage | undefined) {
+  if (!storage) return;
   const metas = await storage.getAllPdfFiles();
   metas.reverse();
   return metas;

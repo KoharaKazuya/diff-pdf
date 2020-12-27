@@ -1,10 +1,14 @@
 const { initialize } = require("../../lib/page");
 
 beforeAll(async () => {
-  await initialize();
+  await initialize({ quickTour: true });
 });
 
 describe("画面内リンクによる画面遷移", () => {
+  beforeEach(async () => {
+    await initialize();
+  });
+
   it("全ての画面に遷移できる", async () => {
     // /about
     await page.click("text=About");

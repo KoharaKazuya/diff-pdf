@@ -1,12 +1,12 @@
-const { baseURL, initialize, attachPDF } = require("../../lib/page");
+const { initialize, attachPDF } = require("../../lib/page");
 
 beforeAll(async () => {
-  await initialize();
+  await initialize({ quickTour: true });
 });
 
 describe("PDF ファイルの比較ロジック", () => {
   beforeEach(async () => {
-    await page.goto(`${baseURL}/`);
+    await initialize();
   });
 
   it("ファイルを２つ選択すると差分が表示できる", async () => {

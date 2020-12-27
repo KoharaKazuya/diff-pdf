@@ -1,17 +1,18 @@
 import constate from "constate";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { useAsync } from "react-async-hook";
-import { BrowserStorage } from "../browser-storage";
+import type { Storage } from "../browser-storage";
+import { useBrowserStorage } from "./browser-storage";
 
 function useUserSettings() {
-  const storage = useMemo(() => new BrowserStorage(), []);
+  const storage = useBrowserStorage();
   const { result: userSettings, execute } = useAsync(getUserSettings, [
     storage,
   ]);
 
   useEffect(
     () =>
-      storage.onChangeUserSettings(() => {
+      storage?.onChangeUserSettings(() => {
         execute(storage);
       }),
     [storage]
@@ -19,14 +20,14 @@ function useUserSettings() {
 
   const completeQuickTour = () => {
     if (!userSettings) return;
-    storage.setUserSettings({ ...userSettings, quickTourCompleted: true });
+    storage?.setUserSettings({ ...userSettings, quickTourCompleted: true });
   };
 
   return { userSettings, completeQuickTour };
 }
 
-function getUserSettings(storage: BrowserStorage) {
-  return storage.getUserSettings();
+async function getUserSettings(storage: Storage | undefined) {
+  return await storage?.getUserSettings();
 }
 
 export const [

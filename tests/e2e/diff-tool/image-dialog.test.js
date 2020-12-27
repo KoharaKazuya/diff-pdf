@@ -1,12 +1,12 @@
-const { baseURL, initialize, attachPDF } = require("../../lib/page");
+const { initialize, attachPDF } = require("../../lib/page");
 
 beforeAll(async () => {
-  await initialize();
+  await initialize({ quickTour: true });
 });
 
 describe("画像の拡大表示ダイアログ", () => {
   beforeEach(async () => {
-    await page.goto(`${baseURL}/`);
+    await initialize();
   });
 
   it("ファイルの中身を表示している画像をクリックするとダイアログが表示される", async () => {
