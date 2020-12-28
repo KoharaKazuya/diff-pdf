@@ -25,6 +25,28 @@ export default function SiteDescription() {
         </p>
       </section>
       <section>
+        <Heading level={3}>オフライン利用</Heading>
+        <p>
+          デスクトップの Chrome および Edge
+          を使用している場合、このサイトをアプリとしてインストールすることで全ての機能をオフラインで利用することができます
+          (詳細:
+          <a
+            href="https://support.google.com/chrome/answer/9658361?co=GENIE.Platform%3DDesktop&hl=ja"
+            target="_blank"
+          >
+            Chrome
+          </a>
+          ,{" "}
+          <a
+            href="https://www.windows10info.net/edge/chromium_edge_instsite.html"
+            target="_blank"
+          >
+            Edge
+          </a>
+          )。
+        </p>
+      </section>
+      <section>
         <Heading level={3}>ライセンス</Heading>
         <p>
           ソースコード:{" "}
