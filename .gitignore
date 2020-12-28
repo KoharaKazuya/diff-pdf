@@ -36,6 +36,6 @@ yarn-error.log*
 # package.json 中 postinstall で定義される、PDF.js 用生成物
 /public/pdfjs-dist/
 
-# Cypress
-cypress/videos
-cypress/screenshots
+# next-pwa
+/public/workbox-*.js
+/public/sw.js

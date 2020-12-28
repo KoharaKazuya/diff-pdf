@@ -4,7 +4,7 @@ import type { Parser } from "./pdf";
 export type PagePair = LeftOnly | RightOnly | Pair;
 type LeftOnly = { left: number; right: undefined };
 type RightOnly = { left: undefined; right: number };
-type Pair = { left: number; right: number; diff: ImageData };
+type Pair = { left: number; right: number; diff: ImageData; score: number };
 
 const loopIndexes: [number, number][] = [
   [0, 0],
@@ -58,7 +58,7 @@ export async function* comparePDFs(
 
       for (let pA = iL; pA < pL; pA++) yield { left: pA, right: undefined };
       for (let pB = iR; pB < pR; pB++) yield { left: undefined, right: pB };
-      yield { left: pL, right: pR, diff: diffResult.diff };
+      yield { left: pL, right: pR, ...diffResult };
 
       iL = pL + 1;
       iR = pR + 1;
@@ -66,10 +66,10 @@ export async function* comparePDFs(
     }
 
     if (maxScorePair) {
-      const { left, right, diff } = maxScorePair;
+      const { left, right, diff, score } = maxScorePair;
       for (let pA = iL; pA < left; pA++) yield { left: pA, right: undefined };
       for (let pB = iR; pB < right; pB++) yield { left: undefined, right: pB };
-      yield { left, right, diff };
+      yield { left, right, diff, score };
       iL = left + 1;
       iR = right + 1;
     } else {

@@ -1,6 +1,6 @@
-import { View } from "@adobe/react-spectrum";
 import Head from "next/head";
 import DiffTool from "../components/DiffTool";
+import QuickTourDialog from "../components/QuickTourDialog";
 
 export default function Home() {
   return (
@@ -8,15 +8,8 @@ export default function Home() {
       <Head>
         <title>Diff PDF</title>
       </Head>
-
-      <View>
-        2つの PDF
-        を画像比較し、差分を強調表示するツールです。比較したい2つのファイルを選択し、しばらく待ってください。このツールでは
-        PDF
-        の比較は完全にローカルのみで実行し、ファイルをアップロードすることはありません。
-      </View>
-
       <DiffTool />
+      <QuickTourDialog />
     </>
   );
 }
