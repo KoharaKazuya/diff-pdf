@@ -29,6 +29,7 @@ describe("画像の拡大表示ダイアログ", () => {
   it("ダイアログは Esc キーで非表示にできる", async () => {
     await attachPDF("left", "2020.pdf");
     await page.click('"1"');
+    await page.waitForSelector("[role=dialog]");
 
     await page.press("body", "Escape");
 

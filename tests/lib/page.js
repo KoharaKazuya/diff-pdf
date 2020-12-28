@@ -19,11 +19,14 @@ module.exports = {
    * @param {'left' | 'right'} side
    */
   async attachPDF(side, file) {
-    const selector = `(//input[@type="file"])[${side === "left" ? 1 : 2}]`;
-    await page.setInputFiles(selector, []);
-    await page.setInputFiles(selector, module.exports.fixturePath(file));
-    await page.waitForSelector(
-      `(//*[@aria-haspopup="listbox"])[${side === "left" ? 1 : 2}] >> "${file}"`
-    );
+    const input = `(//input[@type="file"])[${side === "left" ? 1 : 2}]`;
+    const listbox = `(//*[@aria-haspopup="listbox"])[${
+      side === "left" ? 1 : 2
+    }]`;
+
+    await page.setInputFiles(input, []);
+    await page.evaluate(() => new Promise(requestAnimationFrame));
+    await page.setInputFiles(input, module.exports.fixturePath(file));
+    await page.waitForSelector(`${listbox} >> "${file}"`);
   },
 };
