@@ -9,7 +9,7 @@ const cspHashOf = (text: string) => {
 
 export default class MyDocument extends Document {
   render() {
-    let csp = `default-src 'self'; script-src 'self' ${cspHashOf(
+    let csp = `default-src 'self' vitals.vercel-insights.com; script-src 'self' ${cspHashOf(
       NextScript.getInlineScriptSource(this.props)
     )}; style-src 'self' 'unsafe-inline'`;
 

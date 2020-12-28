@@ -7,14 +7,21 @@ export default function SiteDescription() {
         <Heading level={3}>使い方</Heading>
         <p>
           このサイトは2つの PDF
-          を画像比較し、差分を強調表示します。比較したい2つのファイルを選択し、しばらく待ってください。
+          を画像比較し、差分を強調表示します。比較したい2つのファイルを選択し、表示が完了するまでお待ちください。
         </p>
       </section>
       <section>
         <Heading level={3}>プライバシー</Heading>
         <p>
           このサイトでは PDF
-          の比較は完全にローカルのみで実行し、ファイルをアップロードすることはありません。
+          の比較は完全にローカルのみで実行し、ファイルに関する情報をアップロードすることはありません。
+        </p>
+        <p>
+          継続的な改善のため、このサイトでは個人に関連付かない匿名の情報について収集します。具体的な例などの詳細な説明は{" "}
+          <a href="https://vercel.com/docs/analytics#privacy" target="_blank">
+            Analytics - Vercel Documentation
+          </a>{" "}
+          のページをご確認ください。
         </p>
       </section>
       <section>
