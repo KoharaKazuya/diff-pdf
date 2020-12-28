@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import { useQuickTourCompleted } from "../features/user-settings";
+import { useQuickTourCompleted } from "../state/user-settings";
 
 const LazyDialog = dynamic(
   () => import("./QuickTourDialog/BrowserContextNeeded"),

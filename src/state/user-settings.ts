@@ -2,13 +2,16 @@ import constate from "constate";
 import { useEffect } from "react";
 import { useAsync } from "react-async-hook";
 import type { Storage } from "../browser-storage";
-import { useBrowserStorage } from "./browser-storage";
+import { useStorage } from "./browser-storage";
 
-function useUserSettings() {
-  const storage = useBrowserStorage();
-  const { result: userSettings, execute } = useAsync(getUserSettings, [
-    storage,
-  ]);
+function useUserSettingsStateInner() {
+  const storage = useStorage();
+  const { result: userSettings, execute } = useAsync(
+    async (storage: Storage | undefined) => {
+      return await storage?.getUserSettings();
+    },
+    [storage]
+  );
 
   useEffect(
     () =>
@@ -25,19 +28,12 @@ function useUserSettings() {
 
   return { userSettings, completeQuickTour };
 }
-
-async function getUserSettings(storage: Storage | undefined) {
-  return await storage?.getUserSettings();
-}
-
 export const [
-  UserSettingsProvider,
+  UserSettingsStateProvider,
   useQuickTourCompleted,
   useCompleteQuickTour,
 ] = constate(
-  useUserSettings,
-  ({ userSettings }: ReturnType<typeof useUserSettings>) =>
-    userSettings?.quickTourCompleted ?? true,
-  ({ completeQuickTour }: ReturnType<typeof useUserSettings>) =>
-    completeQuickTour
+  useUserSettingsStateInner,
+  ({ userSettings }) => userSettings?.quickTourCompleted ?? true,
+  ({ completeQuickTour }) => completeQuickTour
 );

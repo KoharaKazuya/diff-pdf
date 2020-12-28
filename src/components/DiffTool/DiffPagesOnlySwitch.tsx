@@ -1,8 +1,8 @@
 import { Switch } from "@adobe/react-spectrum";
-import { useDiffPagesOnlyState } from "../../features/diff-tool";
+import { useIsDiffPagesOnlyState } from "../../state/is-diff-pages-only";
 
 export default function DiffPagesOnlySwitch() {
-  const [isDiffPagesOnly, setIsDiffPagesOnly] = useDiffPagesOnlyState();
+  const [isDiffPagesOnly, setIsDiffPagesOnly] = useIsDiffPagesOnlyState();
 
   return (
     <Switch

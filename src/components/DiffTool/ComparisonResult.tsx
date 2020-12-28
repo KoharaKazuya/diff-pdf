@@ -1,13 +1,9 @@
 import type { ReactNode } from "react";
 import type { PagePair } from "../../comparator";
-import {
-  usePagePairs,
-  usePagesL,
-  usePagesR,
-  usePdfParserL,
-  usePdfParserR,
-} from "../../features/diff-tool";
 import type { PdfParser } from "../../pdf-parser";
+import { useFilteredPagePairs } from "../../state/filtered-page-pairs";
+import { usePagesL, usePagesR } from "../../state/pages";
+import { usePdfParserL, usePdfParserR } from "../../state/pdf-parser";
 import Image from "../Image";
 import GridTable from "./ComparisonResult/GridTable";
 import NoMatch from "./ComparisonResult/NoMatch";
@@ -18,7 +14,7 @@ export default function ComparisonResult() {
   const parserL = usePdfParserL();
   const parserR = usePdfParserR();
 
-  const pagePairs = usePagePairs();
+  const pagePairs = useFilteredPagePairs();
 
   const pagesL = usePagesL();
   const pagesR = usePagesR();

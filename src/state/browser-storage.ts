@@ -7,7 +7,7 @@ import {
   Storage,
 } from "../browser-storage";
 
-function useBrowserStorageValue(): Storage | undefined {
+function useStorageInner(): Storage | undefined {
   const [storage, setStorage] = useState<Storage>();
 
   useEffect(() => {
@@ -23,7 +23,4 @@ function useBrowserStorageValue(): Storage | undefined {
 
   return storage;
 }
-
-export const [BrowserStorageProvider, useBrowserStorage] = constate(
-  useBrowserStorageValue
-);
+export const [StorageProvider, useStorage] = constate(useStorageInner);

@@ -1,5 +1,5 @@
 import { Form, Grid } from "@adobe/react-spectrum";
-import { useSetPdfFileL, useSetPdfFileR } from "../../features/diff-tool";
+import { useSetPdfFileL, useSetPdfFileR } from "../../state/pdf-file";
 import PdfFilePicker from "./PdfFileForm/PdfFilePicker";
 
 export default function PdfFileForm() {
