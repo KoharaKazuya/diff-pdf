@@ -40,4 +40,22 @@ describe("PDF ファイルの比較ロジック", () => {
 
     await page.waitForSelector('"一致"', { state: "hidden" });
   });
+
+  it("不正な PDF を選択するとダイアログでエラーメッセージが表示される", async () => {
+    await attachPDF("left", "2020.pdf");
+
+    await Promise.all([
+      new Promise((resolve, reject) => {
+        page.on("dialog", (dialog) => {
+          const message = dialog.message();
+          if (message.includes("失敗")) {
+            resolve(dialog);
+          } else {
+            reject(`invalid dialog message: ${message}`);
+          }
+        });
+      }).then((dialog) => dialog.dismiss()),
+      attachPDF("right", "invalid.pdf"),
+    ]);
+  });
 });

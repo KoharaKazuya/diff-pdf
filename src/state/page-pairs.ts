@@ -18,7 +18,12 @@ function usePagePairsInner(): PagePair[] | undefined {
         pairs = [...pairs, r];
         setPagePairs(pairs);
       }
-    })();
+    })().catch((e) => {
+      console.warn(e);
+      alert(
+        "PDF の比較に失敗しました。不正な PDF が選択された可能性があります。"
+      );
+    });
   }, [parserL, parserR]);
 
   return pagePairs;
