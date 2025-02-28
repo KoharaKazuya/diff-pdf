@@ -30,7 +30,7 @@ export default function ComparisonResult() {
 
 function parserPages(
   parser: PdfParser | undefined,
-  pages: (number | undefined)[]
+  pages: (number | undefined)[],
 ): ReactNode[] | undefined {
   if (!parser) return;
   return pages.map((p, i) =>
@@ -42,14 +42,14 @@ function parserPages(
       <PageFrame key={`${parser.id}-undefined${i}`}>
         <NoMatch />
       </PageFrame>
-    )
+    ),
   );
 }
 
 function pairPages(
   pairs: PagePair[] | undefined,
   parserL: PdfParser | undefined,
-  parserR: PdfParser | undefined
+  parserR: PdfParser | undefined,
 ) {
   return (pairs ?? []).map((pair, i) => {
     const label =

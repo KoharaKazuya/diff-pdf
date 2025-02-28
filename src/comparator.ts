@@ -15,7 +15,7 @@ const loopIndexes: [number, number][] = [
 ];
 export async function* comparePDFs(
   pdfL: Parser,
-  pdfR: Parser
+  pdfR: Parser,
 ): AsyncGenerator<PagePair> {
   const [parsedL, parsedR] = await Promise.all([pdfL.parse(), pdfR.parse()]);
   const lenL = parsedL.numPages;
@@ -46,7 +46,7 @@ export async function* comparePDFs(
       if (diffResult.score === 0) continue;
       if (!("diff" in diffResult))
         throw new Error(
-          "diffResult with non-zero score must have diff image data"
+          "diffResult with non-zero score must have diff image data",
         );
 
       if (diffResult.score < 1) {

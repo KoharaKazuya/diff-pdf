@@ -22,16 +22,12 @@ export function PagePairsProvider({ children }: { children: ReactNode }) {
     })().catch((e) => {
       console.warn(e);
       alert(
-        "PDF の比較に失敗しました。不正な PDF が選択された可能性があります。"
+        "PDF の比較に失敗しました。不正な PDF が選択された可能性があります。",
       );
     });
   }, [parserL, parserR]);
 
-  return (
-    <PagePiarsContext value={pagePairs}>
-      {children}
-    </PagePiarsContext>
-  );
+  return <PagePiarsContext value={pagePairs}>{children}</PagePiarsContext>;
 }
 
 export function usePagePairs() {

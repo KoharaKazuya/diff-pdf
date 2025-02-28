@@ -3,9 +3,15 @@ import type { PagePair } from "../comparator";
 import { useIsDiffPagesOnlyState } from "./is-diff-pages-only";
 import { usePagePairs } from "./page-pairs";
 
-const FilteredPagePairsContext = createContext<PagePair[] | undefined>(undefined);
+const FilteredPagePairsContext = createContext<PagePair[] | undefined>(
+  undefined,
+);
 
-export function FilteredPagePairsProvider({ children }: { children?: ReactNode }) {
+export function FilteredPagePairsProvider({
+  children,
+}: {
+  children?: ReactNode;
+}) {
   const pagePairs = usePagePairs();
   const [isDiffPagesOnly] = useIsDiffPagesOnlyState();
 
@@ -14,7 +20,7 @@ export function FilteredPagePairsProvider({ children }: { children?: ReactNode }
       isDiffPagesOnly
         ? pagePairs?.filter((pair) => !("score" in pair) || pair.score !== 1)
         : pagePairs,
-    [pagePairs, isDiffPagesOnly]
+    [pagePairs, isDiffPagesOnly],
   );
 
   return (

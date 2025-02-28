@@ -16,7 +16,7 @@ export default function PdfPage({ parser, index }: Props) {
       const image = await page.render();
       return image;
     },
-    [parser, index]
+    [parser, index],
   );
 
   return image ? (

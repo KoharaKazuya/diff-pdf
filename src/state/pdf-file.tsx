@@ -11,9 +11,7 @@ export function PdfFileLStateProvider({ children }: { children: ReactNode }) {
   const [file, setFile] = useState<File>();
   return (
     <PdfFileLContext value={file}>
-      <SetPdfFileLContext value={setFile}>
-        {children}
-      </SetPdfFileLContext>
+      <SetPdfFileLContext value={setFile}>{children}</SetPdfFileLContext>
     </PdfFileLContext>
   );
 }
@@ -32,9 +30,7 @@ export function PdfFileRStateProvider({ children }: { children: ReactNode }) {
   const [file, setFile] = usePdfFileStateInner();
   return (
     <PdfFileRContext value={file}>
-      <SetPdfFileRContext value={setFile}>
-        {children}
-      </SetPdfFileRContext>
+      <SetPdfFileRContext value={setFile}>{children}</SetPdfFileRContext>
     </PdfFileRContext>
   );
 }

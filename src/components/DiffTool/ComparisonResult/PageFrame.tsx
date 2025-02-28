@@ -5,7 +5,7 @@ import Centerize from "../../Centerize";
 
 const LazyImageDialog = dynamic(
   () => import(/* webpackPrefetch: true */ "./PageFrame/ImageDialog"),
-  { ssr: false }
+  { ssr: false },
 );
 
 type Props = {

@@ -21,7 +21,7 @@ export type ImgDiffResult =
  */
 export function imgDiff(
   img1: ImageData,
-  img2: ImageData
+  img2: ImageData,
 ): Promise<ImgDiffResult> {
   if (!worker)
     worker = wrap(new Worker(new URL("./img-diff.worker", import.meta.url)));

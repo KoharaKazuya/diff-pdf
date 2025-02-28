@@ -56,7 +56,7 @@ export class PdfPage implements Page {
       if (!ctx) throw new Error("cannot get 2d context from OffscreenCanvas");
 
       await this.page.render({
-        canvasContext: (ctx as unknown) as CanvasRenderingContext2D,
+        canvasContext: ctx as unknown as CanvasRenderingContext2D,
         viewport,
       }).promise;
 

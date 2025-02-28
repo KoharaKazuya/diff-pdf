@@ -6,7 +6,7 @@ import type { ImgDiffResult } from "./img-diff";
 
 async function imgDiff(
   img1: ImageData,
-  img2: ImageData
+  img2: ImageData,
 ): Promise<ImgDiffResult> {
   const { width, height } = img1;
   if (width !== img2.width || height !== img2.height) return { score: 0 };
@@ -17,7 +17,7 @@ async function imgDiff(
     img2.data,
     diffData,
     width,
-    height
+    height,
   );
 
   return {

@@ -1,6 +1,6 @@
 import {
   defaultTheme,
-  Provider as SpectrumProvider
+  Provider as SpectrumProvider,
 } from "@adobe/react-spectrum";
 import type { AppProps } from "next/app";
 import "sanitize.css";

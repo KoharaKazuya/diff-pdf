@@ -6,7 +6,8 @@
     "start": "next start",
     "lint": "next lint",
     "test": "playwright test",
-    "test:dev": "playwright test --ui-host=0.0.0.0"
+    "test:dev": "playwright test --ui-host=0.0.0.0",
+    "format": "prettier --write src/"
   },
   "dependencies": {
     "@adobe/react-spectrum": "^3.39.0",
@@ -33,6 +34,7 @@
     "@types/react-dom": "^19",
     "glob": "^11.0.1",
     "playwright": "^1.7.1",
+    "prettier": "^3.5.2",
     "serwist": "^9.0.12",
     "typescript": "^5"
   }

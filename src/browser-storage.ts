@@ -68,7 +68,7 @@ export class BrowserStorage implements Storage {
         },
         blocked() {
           alert(
-            "安全に内部データをアップデートするため、このサイトを開いている他のタブをすべて閉じてください。"
+            "安全に内部データをアップデートするため、このサイトを開いている他のタブをすべて閉じてください。",
           );
         },
       });
@@ -104,7 +104,7 @@ export class BrowserStorage implements Storage {
     if (count + 1 > MAX_FILES) {
       const keys = await fileMetasStore.getAllKeys(
         undefined,
-        count + 1 - MAX_FILES
+        count + 1 - MAX_FILES,
       );
       await Promise.all([
         ...keys.map((key) => fileMetasStore.delete(key)),

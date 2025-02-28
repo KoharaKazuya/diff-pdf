@@ -7,12 +7,12 @@ import { usePdfParserL, usePdfParserR } from "./pdf-parser";
 
 function useFilteredPages(
   parser: PdfParser | undefined,
-  pairedPages: (number | undefined)[] | undefined
+  pairedPages: (number | undefined)[] | undefined,
 ): (number | undefined)[] {
   const { result } = useAsync(
     async (
       parser: PdfParser | undefined,
-      pairedPages: (number | undefined)[] | undefined
+      pairedPages: (number | undefined)[] | undefined,
     ) => {
       if (!parser) return [];
       if (pairedPages) return pairedPages;
@@ -20,7 +20,7 @@ function useFilteredPages(
       const pageNum = doc.numPages;
       return range(1, pageNum + 1);
     },
-    [parser, pairedPages]
+    [parser, pairedPages],
   );
   return result ?? [];
 }
@@ -31,7 +31,7 @@ export function PagesLProvider({ children }: { children: ReactNode }) {
   const pagePairs = useFilteredPagePairs();
   const filteredPages = useFilteredPages(
     usePdfParserL(),
-    useMemo(() => pagePairs?.map((p) => p.left), [pagePairs])
+    useMemo(() => pagePairs?.map((p) => p.left), [pagePairs]),
   );
   return <PagesLContext value={filteredPages}>{children}</PagesLContext>;
 }
@@ -46,7 +46,7 @@ export function PagesRProvider({ children }: { children: ReactNode }) {
   const pagePairs = useFilteredPagePairs();
   const filteredPages = useFilteredPages(
     usePdfParserR(),
-    useMemo(() => pagePairs?.map((p) => p.right), [pagePairs])
+    useMemo(() => pagePairs?.map((p) => p.right), [pagePairs]),
   );
   return <PagesRContext value={filteredPages}>{children}</PagesRContext>;
 }

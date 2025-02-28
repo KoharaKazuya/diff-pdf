@@ -6,13 +6,17 @@ import { useStorage } from "./browser-storage";
 const QuickTourCompletedContext = createContext<boolean>(true);
 const CompleteQuickTourContext = createContext<() => void>(() => {});
 
-export function UserSettingsStateProvider({ children }: { children: ReactNode }) {
+export function UserSettingsStateProvider({
+  children,
+}: {
+  children: ReactNode;
+}) {
   const storage = useStorage();
   const { result: userSettings, execute } = useAsync(
     async (storage: Storage | undefined) => {
       return await storage?.getUserSettings();
     },
-    [storage]
+    [storage],
   );
 
   useEffect(
@@ -20,7 +24,7 @@ export function UserSettingsStateProvider({ children }: { children: ReactNode })
       storage?.onChangeUserSettings(() => {
         execute(storage);
       }),
-    [storage]
+    [storage],
   );
 
   const completeQuickTour = () => {

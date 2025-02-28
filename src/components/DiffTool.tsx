@@ -4,7 +4,7 @@ import PdfFileForm from "./DiffTool/PdfFileForm";
 
 const LazyComparisonResult = dynamic(
   () => import(/* webpackPrefetch: true */ "./DiffTool/ComparisonResult"),
-  { ssr: false }
+  { ssr: false },
 );
 
 export default function DiffTool() {

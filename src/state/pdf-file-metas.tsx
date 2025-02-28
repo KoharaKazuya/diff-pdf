@@ -15,7 +15,7 @@ export function PdfFileMetasProvider({ children }: { children: ReactNode }) {
       metas.reverse();
       return metas;
     },
-    [storage]
+    [storage],
   );
 
   useEffect(
@@ -23,7 +23,7 @@ export function PdfFileMetasProvider({ children }: { children: ReactNode }) {
       storage?.onChangePdf(() => {
         execute(storage);
       }),
-    [storage]
+    [storage],
   );
 
   return <PdfFileMetasContext value={result}>{children}</PdfFileMetasContext>;
