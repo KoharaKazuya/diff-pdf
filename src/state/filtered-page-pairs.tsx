@@ -1,10 +1,11 @@
-import constate from "constate";
-import { useMemo } from "react";
+import { createContext, ReactNode, use, useMemo } from "react";
 import type { PagePair } from "../comparator";
 import { useIsDiffPagesOnlyState } from "./is-diff-pages-only";
 import { usePagePairs } from "./page-pairs";
 
-function useFilteredPagePairsInner(): PagePair[] | undefined {
+const FilteredPagePairsContext = createContext<PagePair[] | undefined>(undefined);
+
+export function FilteredPagePairsProvider({ children }: { children?: ReactNode }) {
   const pagePairs = usePagePairs();
   const [isDiffPagesOnly] = useIsDiffPagesOnlyState();
 
@@ -16,8 +17,13 @@ function useFilteredPagePairsInner(): PagePair[] | undefined {
     [pagePairs, isDiffPagesOnly]
   );
 
-  return filteredPagePairs;
+  return (
+    <FilteredPagePairsContext value={filteredPagePairs}>
+      {children}
+    </FilteredPagePairsContext>
+  );
 }
-export const [FilteredPagePairsProvider, useFilteredPagePairs] = constate(
-  useFilteredPagePairsInner
-);
+
+export function useFilteredPagePairs() {
+  return use(FilteredPagePairsContext);
+}

@@ -24,7 +24,7 @@ export function imgDiff(
   img2: ImageData
 ): Promise<ImgDiffResult> {
   if (!worker)
-    worker = wrap(new Worker("./img-diff.worker", { type: "module" }));
+    worker = wrap(new Worker(new URL("./img-diff.worker", import.meta.url)));
 
   return worker.imgDiff(img1, img2);
 }

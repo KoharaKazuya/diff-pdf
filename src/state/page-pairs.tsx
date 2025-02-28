@@ -1,9 +1,10 @@
-import constate from "constate";
-import { useEffect, useState } from "react";
+import { createContext, ReactNode, use, useEffect, useState } from "react";
 import { comparePDFs, PagePair } from "../comparator";
 import { usePdfParserL, usePdfParserR } from "./pdf-parser";
 
-function usePagePairsInner(): PagePair[] | undefined {
+const PagePiarsContext = createContext<PagePair[] | undefined>(undefined);
+
+export function PagePairsProvider({ children }: { children: ReactNode }) {
   const parserL = usePdfParserL();
   const parserR = usePdfParserR();
 
@@ -26,6 +27,13 @@ function usePagePairsInner(): PagePair[] | undefined {
     });
   }, [parserL, parserR]);
 
-  return pagePairs;
+  return (
+    <PagePiarsContext value={pagePairs}>
+      {children}
+    </PagePiarsContext>
+  );
 }
-export const [PagePairsProvider, usePagePairs] = constate(usePagePairsInner);
+
+export function usePagePairs() {
+  return use(PagePiarsContext);
+}

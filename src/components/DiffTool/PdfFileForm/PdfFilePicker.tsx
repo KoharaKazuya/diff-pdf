@@ -31,7 +31,7 @@ export default function PdfFilePicker({ onPick }: Props) {
           </Item>
         )}
       </Picker>
-      <InputFile accept=".pdf,application/pdf" onAccept={onAccept} />
+      <InputFile onAccept={onAccept} />
     </View>
   );
 }

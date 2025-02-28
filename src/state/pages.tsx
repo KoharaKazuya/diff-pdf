@@ -1,5 +1,4 @@
-import constate from "constate";
-import { useMemo } from "react";
+import { createContext, ReactNode, use, useMemo } from "react";
 import { useAsync } from "react-async-hook";
 import type { PdfParser } from "../pdf-parser";
 import { range } from "../utils/range";
@@ -26,20 +25,32 @@ function useFilteredPages(
   return result ?? [];
 }
 
-function usePagesLInner() {
+const PagesLContext = createContext<(number | undefined)[]>([]);
+
+export function PagesLProvider({ children }: { children: ReactNode }) {
   const pagePairs = useFilteredPagePairs();
-  return useFilteredPages(
+  const filteredPages = useFilteredPages(
     usePdfParserL(),
     useMemo(() => pagePairs?.map((p) => p.left), [pagePairs])
   );
+  return <PagesLContext value={filteredPages}>{children}</PagesLContext>;
 }
-export const [PagesLProvider, usePagesL] = constate(usePagesLInner);
 
-function usePagesRInner() {
+export function usePagesL() {
+  return use(PagesLContext);
+}
+
+const PagesRContext = createContext<(number | undefined)[]>([]);
+
+export function PagesRProvider({ children }: { children: ReactNode }) {
   const pagePairs = useFilteredPagePairs();
-  return useFilteredPages(
+  const filteredPages = useFilteredPages(
     usePdfParserR(),
     useMemo(() => pagePairs?.map((p) => p.right), [pagePairs])
   );
+  return <PagesRContext value={filteredPages}>{children}</PagesRContext>;
 }
-export const [PagesRProvider, usePagesR] = constate(usePagesRInner);
+
+export function usePagesR() {
+  return use(PagesRContext);
+}

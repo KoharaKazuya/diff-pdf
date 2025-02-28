@@ -1,20 +1,31 @@
-import constate from "constate";
+import { createContext, ReactNode, use } from "react";
 import { useAsync } from "react-async-hook";
+import { PdfParser } from "../pdf-parser";
 import { usePdfFileL, usePdfFileR } from "./pdf-file";
 
-function usePdfParserLInner() {
+const PdfParserLContext = createContext<PdfParser | undefined>(undefined);
+
+export function PdfParserLProvider({ children }: { children: ReactNode }) {
   const file = usePdfFileL();
   const { result } = useAsync(getPdfParserInstance, [file]);
-  return result;
+  return <PdfParserLContext value={result}>{children}</PdfParserLContext>;
 }
-export const [PdfParserLProvider, usePdfParserL] = constate(usePdfParserLInner);
 
-function usePdfParserRInner() {
+export function usePdfParserL() {
+  return use(PdfParserLContext);
+}
+
+const PdfParserRContext = createContext<PdfParser | undefined>(undefined);
+
+export function PdfParserRProvider({ children }: { children: ReactNode }) {
   const file = usePdfFileR();
   const { result } = useAsync(getPdfParserInstance, [file]);
-  return result;
+  return <PdfParserRContext value={result}>{children}</PdfParserRContext>;
 }
-export const [PdfParserRProvider, usePdfParserR] = constate(usePdfParserRInner);
+
+export function usePdfParserR() {
+  return use(PdfParserRContext);
+}
 
 let pdfParserModule: Promise<typeof import("../pdf-parser")> | undefined;
 function fetchPdfParserModule() {

@@ -1,10 +1,11 @@
-import constate from "constate";
-import { useEffect } from "react";
+import { createContext, ReactNode, use, useEffect } from "react";
 import { useAsync } from "react-async-hook";
-import type { Storage } from "../browser-storage";
+import type { PdfFileMeta, Storage } from "../browser-storage";
 import { useStorage } from "./browser-storage";
 
-function usePdfFileMetasInner() {
+const PdfFileMetasContext = createContext<PdfFileMeta[] | undefined>(undefined);
+
+export function PdfFileMetasProvider({ children }: { children: ReactNode }) {
   const storage = useStorage();
 
   const { result, execute } = useAsync(
@@ -25,8 +26,9 @@ function usePdfFileMetasInner() {
     [storage]
   );
 
-  return result;
+  return <PdfFileMetasContext value={result}>{children}</PdfFileMetasContext>;
 }
-export const [PdfFileMetasProvider, usePdfFileMetas] = constate(
-  usePdfFileMetasInner
-);
+
+export function usePdfFileMetas() {
+  return use(PdfFileMetasContext);
+}
