@@ -1,4 +1,4 @@
-import { createContext, ReactNode, use, useMemo } from "react";
+import { createContext, use, useMemo } from "react";
 import type { PagePair } from "../comparator";
 import { useIsDiffPagesOnlyState } from "./is-diff-pages-only";
 import { usePagePairs } from "./page-pairs";
@@ -10,7 +10,7 @@ const FilteredPagePairsContext = createContext<PagePair[] | undefined>(
 export function FilteredPagePairsProvider({
   children,
 }: {
-  children?: ReactNode;
+  children?: React.ReactNode;
 }) {
   const pagePairs = usePagePairs();
   const [isDiffPagesOnly] = useIsDiffPagesOnlyState();

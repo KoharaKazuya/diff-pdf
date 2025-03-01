@@ -1,8 +1,7 @@
 import { Grid } from "@adobe/react-spectrum";
-import type { ReactNode } from "react";
 
 type Props = {
-  children: ReactNode;
+  children: React.ReactNode;
 };
 
 export default function Centerize({ children }: Props) {

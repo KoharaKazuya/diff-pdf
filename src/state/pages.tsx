@@ -1,4 +1,4 @@
-import { createContext, ReactNode, use, useMemo } from "react";
+import { createContext, use, useMemo } from "react";
 import { useAsync } from "react-async-hook";
 import type { PdfParser } from "../pdf-parser";
 import { range } from "../utils/range";
@@ -27,7 +27,7 @@ function useFilteredPages(
 
 const PagesLContext = createContext<(number | undefined)[]>([]);
 
-export function PagesLProvider({ children }: { children: ReactNode }) {
+export function PagesLProvider({ children }: { children: React.ReactNode }) {
   const pagePairs = useFilteredPagePairs();
   const filteredPages = useFilteredPages(
     usePdfParserL(),
@@ -42,7 +42,7 @@ export function usePagesL() {
 
 const PagesRContext = createContext<(number | undefined)[]>([]);
 
-export function PagesRProvider({ children }: { children: ReactNode }) {
+export function PagesRProvider({ children }: { children: React.ReactNode }) {
   const pagePairs = useFilteredPagePairs();
   const filteredPages = useFilteredPages(
     usePdfParserR(),

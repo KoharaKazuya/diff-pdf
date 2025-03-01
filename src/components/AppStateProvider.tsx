@@ -1,4 +1,4 @@
-import type { FC, ReactNode } from "react";
+import type { FC } from "react";
 import { StorageProvider } from "../state/browser-storage";
 import { FilteredPagePairsProvider } from "../state/filtered-page-pairs";
 import { IsDiffPagesOnlyStateProvider } from "../state/is-diff-pages-only";
@@ -12,7 +12,7 @@ import { PdfFileMetasProvider } from "../state/pdf-file-metas";
 import { PdfParserLProvider, PdfParserRProvider } from "../state/pdf-parser";
 import { UserSettingsStateProvider } from "../state/user-settings";
 
-const STATE_PROVIDERS: FC<{ children: ReactNode }>[] = [
+const STATE_PROVIDERS: FC<{ children: React.ReactNode }>[] = [
   StorageProvider,
   UserSettingsStateProvider,
   PdfFileMetasProvider,
@@ -28,7 +28,7 @@ const STATE_PROVIDERS: FC<{ children: ReactNode }>[] = [
 ].reverse();
 
 type Props = {
-  children: ReactNode;
+  children: React.ReactNode;
 };
 
 export default function AppStateProvider({ children }: Props) {

@@ -1,4 +1,4 @@
-import { createContext, ReactNode, use, useState } from "react";
+import { createContext, use, useState } from "react";
 
 function usePdfFileStateInner(): [File | undefined, (file: File) => void] {
   return useState<File>();
@@ -7,7 +7,11 @@ function usePdfFileStateInner(): [File | undefined, (file: File) => void] {
 const PdfFileLContext = createContext<File | undefined>(undefined);
 const SetPdfFileLContext = createContext<(file: File) => void>(() => {});
 
-export function PdfFileLStateProvider({ children }: { children: ReactNode }) {
+export function PdfFileLStateProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [file, setFile] = useState<File>();
   return (
     <PdfFileLContext value={file}>
@@ -26,7 +30,11 @@ export function useSetPdfFileL() {
 const PdfFileRContext = createContext<File | undefined>(undefined);
 const SetPdfFileRContext = createContext<(file: File) => void>(() => {});
 
-export function PdfFileRStateProvider({ children }: { children: ReactNode }) {
+export function PdfFileRStateProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [file, setFile] = usePdfFileStateInner();
   return (
     <PdfFileRContext value={file}>

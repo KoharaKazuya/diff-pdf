@@ -1,4 +1,3 @@
-import type { ReactNode } from "react";
 import type { PagePair } from "../../comparator";
 import type { PdfParser } from "../../pdf-parser";
 import { useFilteredPagePairs } from "../../state/filtered-page-pairs";
@@ -31,7 +30,7 @@ export default function ComparisonResult() {
 function parserPages(
   parser: PdfParser | undefined,
   pages: (number | undefined)[],
-): ReactNode[] | undefined {
+): React.ReactNode[] | undefined {
   if (!parser) return;
   return pages.map((p, i) =>
     p !== undefined ? (

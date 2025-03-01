@@ -1,11 +1,4 @@
-import {
-  createContext,
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  use,
-  useState,
-} from "react";
+import { createContext, Dispatch, SetStateAction, use, useState } from "react";
 
 const IsDiffPagesOnlyStateContext = createContext<
   [boolean, Dispatch<SetStateAction<boolean>>]
@@ -14,7 +7,7 @@ const IsDiffPagesOnlyStateContext = createContext<
 export function IsDiffPagesOnlyStateProvider({
   children,
 }: {
-  children?: ReactNode;
+  children?: React.ReactNode;
 }) {
   const state = useState(false);
   return (

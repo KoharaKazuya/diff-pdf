@@ -1,6 +1,6 @@
 import { usePress } from "@react-aria/interactions";
 import dynamic from "next/dynamic";
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import Centerize from "../../Centerize";
 
 const LazyImageDialog = dynamic(
@@ -9,8 +9,8 @@ const LazyImageDialog = dynamic(
 );
 
 type Props = {
-  children: ReactNode;
-  label?: ReactNode;
+  children: React.ReactNode;
+  label?: React.ReactNode;
   frameColor?: "green" | "red" | "gray";
 };
 
@@ -46,7 +46,7 @@ function PressableFrame({
   frameColor,
 }: {
   onPress: () => void;
-  children: ReactNode;
+  children: React.ReactNode;
   frameColor: Props["frameColor"];
 }) {
   const { pressProps } = usePress({ onPress });
@@ -69,7 +69,7 @@ function PageFrameLabel({
   children,
   frameColor,
 }: {
-  children: ReactNode;
+  children: React.ReactNode;
   frameColor: Props["frameColor"];
 }) {
   return (

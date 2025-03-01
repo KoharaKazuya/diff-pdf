@@ -1,4 +1,4 @@
-import { createContext, ReactNode, use, useEffect } from "react";
+import { createContext, use, useEffect } from "react";
 import { useAsync } from "react-async-hook";
 import type { Storage } from "../browser-storage";
 import { useStorage } from "./browser-storage";
@@ -9,7 +9,7 @@ const CompleteQuickTourContext = createContext<() => void>(() => {});
 export function UserSettingsStateProvider({
   children,
 }: {
-  children: ReactNode;
+  children: React.ReactNode;
 }) {
   const storage = useStorage();
   const { result: userSettings, execute } = useAsync(

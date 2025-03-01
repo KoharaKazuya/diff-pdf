@@ -1,11 +1,10 @@
 import { Grid } from "@adobe/react-spectrum";
-import type { ReactNode } from "react";
 import GridStack from "./GridTable/GridStack";
 
 type Props = {
-  left?: ReactNode[];
-  center?: ReactNode[];
-  right?: ReactNode[];
+  left?: React.ReactNode[];
+  center?: React.ReactNode[];
+  right?: React.ReactNode[];
 };
 
 export default function GridTable({ left, center, right }: Props) {

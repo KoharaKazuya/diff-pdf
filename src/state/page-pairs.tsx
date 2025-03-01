@@ -1,10 +1,10 @@
-import { createContext, ReactNode, use, useEffect, useState } from "react";
+import { createContext, use, useEffect, useState } from "react";
 import { comparePDFs, PagePair } from "../comparator";
 import { usePdfParserL, usePdfParserR } from "./pdf-parser";
 
 const PagePiarsContext = createContext<PagePair[] | undefined>(undefined);
 
-export function PagePairsProvider({ children }: { children: ReactNode }) {
+export function PagePairsProvider({ children }: { children: React.ReactNode }) {
   const parserL = usePdfParserL();
   const parserR = usePdfParserR();
 

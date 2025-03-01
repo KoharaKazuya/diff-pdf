@@ -1,4 +1,4 @@
-import { createContext, ReactNode, use, useEffect, useState } from "react";
+import { createContext, use, useEffect, useState } from "react";
 import {
   BrowserStorage,
   detectIndexedDBAccess,
@@ -8,7 +8,7 @@ import {
 
 const StorageContext = createContext<Storage | undefined>(undefined);
 
-export function StorageProvider({ children }: { children?: ReactNode }) {
+export function StorageProvider({ children }: { children?: React.ReactNode }) {
   const [storage, setStorage] = useState<Storage>();
 
   useEffect(() => {

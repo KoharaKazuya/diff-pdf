@@ -1,4 +1,4 @@
-import { Flex, Header as SpectrumHeader, Heading } from "@adobe/react-spectrum";
+import { Flex, Heading, Header as SpectrumHeader } from "@adobe/react-spectrum";
 import Link from "next/link";
 
 export default function Header() {
