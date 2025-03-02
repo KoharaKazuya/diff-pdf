@@ -38,5 +38,8 @@
     "prettier": "^3.5.2",
     "serwist": "^9.0.12",
     "typescript": "^5"
+  },
+  "engines": {
+    "node": "22.x"
   }
 }
