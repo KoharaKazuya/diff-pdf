@@ -1,3 +1,5 @@
+"use client";
+
 import Head from "next/head";
 import DiffTool from "../components/DiffTool";
 import QuickTourDialog from "../components/QuickTourDialog";

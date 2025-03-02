@@ -1,5 +1,4 @@
-import constate from "constate";
-import { useEffect, useState } from "react";
+import { createContext, use, useEffect, useState } from "react";
 import {
   BrowserStorage,
   detectIndexedDBAccess,
@@ -7,7 +6,9 @@ import {
   Storage,
 } from "../browser-storage";
 
-function useStorageInner(): Storage | undefined {
+const StorageContext = createContext<Storage | undefined>(undefined);
+
+export function StorageProvider({ children }: { children?: React.ReactNode }) {
   const [storage, setStorage] = useState<Storage>();
 
   useEffect(() => {
@@ -21,6 +22,9 @@ function useStorageInner(): Storage | undefined {
     });
   }, []);
 
-  return storage;
+  return <StorageContext value={storage}>{children}</StorageContext>;
 }
-export const [StorageProvider, useStorage] = constate(useStorageInner);
+
+export function useStorage() {
+  return use(StorageContext);
+}

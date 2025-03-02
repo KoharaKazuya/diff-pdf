@@ -2,10 +2,11 @@ import { useEffect, useRef } from "react";
 
 type Props = {
   data: ImageData;
+  fit?: boolean;
   "aria-label"?: string;
 };
 
-export default function Image({ data, "aria-label": ariaLabel }: Props) {
+export default function Image({ data, fit, "aria-label": ariaLabel }: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -22,7 +23,14 @@ export default function Image({ data, "aria-label": ariaLabel }: Props) {
       ref={canvasRef}
       width={data.width}
       height={data.height}
-      style={{ display: "block", maxWidth: "100%" }}
+      style={{
+        display: "block",
+        maxWidth: fit ? "min(100%, calc(100svw - 160px))" : "100%",
+        maxHeight: fit ? "min(100%, calc(100svh - 160px))" : "100%",
+        width: fit ? "100%" : undefined,
+        height: fit ? "100%" : undefined,
+        objectFit: "contain",
+      }}
       aria-label={ariaLabel}
     />
   );

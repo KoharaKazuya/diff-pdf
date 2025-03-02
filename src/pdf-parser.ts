@@ -1,12 +1,11 @@
 import type { PDFDocumentProxy, PDFPageProxy } from "pdfjs-dist";
 import * as pdfjsLib from "pdfjs-dist";
-import { v4 as uuid } from "uuid";
 import type { Document, Page, Parser } from "./pdf";
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = "/pdfjs-dist/build/pdf.worker.js";
+pdfjsLib.GlobalWorkerOptions.workerSrc = "/pdfjs-dist/build/pdf.worker.mjs";
 
 export class PdfParser implements Parser {
-  public readonly id = uuid();
+  public readonly id = Math.random().toString(16).slice(-8);
 
   constructor(private readonly file: File) {}
 
@@ -32,7 +31,7 @@ export class PdfDocument implements Document {
     return this.document.numPages;
   }
 
-  private pages: Promise<Page>[] = [];
+  private pages: (Promise<Page> | undefined)[] = [];
   getPage(index: number): Promise<Page> {
     if (this.pages[index]) return this.pages[index];
     return (this.pages[index] = (async () => {
@@ -57,7 +56,7 @@ export class PdfPage implements Page {
       if (!ctx) throw new Error("cannot get 2d context from OffscreenCanvas");
 
       await this.page.render({
-        canvasContext: (ctx as unknown) as CanvasRenderingContext2D,
+        canvasContext: ctx as unknown as CanvasRenderingContext2D,
         viewport,
       }).promise;
 

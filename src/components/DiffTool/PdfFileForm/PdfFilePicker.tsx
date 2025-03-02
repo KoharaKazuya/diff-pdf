@@ -10,9 +10,8 @@ type Props = {
 };
 
 export default function PdfFilePicker({ onPick }: Props) {
-  const [metas, onAccept, selectedPdfId, onSelectionChange] = usePdfSelection(
-    onPick
-  );
+  const [metas, onAccept, selectedPdfId, onSelectionChange] =
+    usePdfSelection(onPick);
 
   return (
     <View>
@@ -31,7 +30,7 @@ export default function PdfFilePicker({ onPick }: Props) {
           </Item>
         )}
       </Picker>
-      <InputFile accept=".pdf,application/pdf" onAccept={onAccept} />
+      <InputFile onAccept={onAccept} />
     </View>
   );
 }

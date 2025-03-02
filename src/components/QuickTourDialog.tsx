@@ -3,7 +3,7 @@ import { useQuickTourCompleted } from "../state/user-settings";
 
 const LazyDialog = dynamic(
   () => import("./QuickTourDialog/BrowserContextNeeded"),
-  { ssr: false }
+  { ssr: false },
 );
 
 export default function QuickTourDialog() {

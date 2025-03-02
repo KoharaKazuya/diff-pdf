@@ -1,9 +1,10 @@
-import constate from "constate";
-import { useEffect, useState } from "react";
+import { createContext, use, useEffect, useState } from "react";
 import { comparePDFs, PagePair } from "../comparator";
 import { usePdfParserL, usePdfParserR } from "./pdf-parser";
 
-function usePagePairsInner(): PagePair[] | undefined {
+const PagePiarsContext = createContext<PagePair[] | undefined>(undefined);
+
+export function PagePairsProvider({ children }: { children: React.ReactNode }) {
   const parserL = usePdfParserL();
   const parserR = usePdfParserR();
 
@@ -21,11 +22,14 @@ function usePagePairsInner(): PagePair[] | undefined {
     })().catch((e) => {
       console.warn(e);
       alert(
-        "PDF の比較に失敗しました。不正な PDF が選択された可能性があります。"
+        "PDF の比較に失敗しました。不正な PDF が選択された可能性があります。",
       );
     });
   }, [parserL, parserR]);
 
-  return pagePairs;
+  return <PagePiarsContext value={pagePairs}>{children}</PagePiarsContext>;
 }
-export const [PagePairsProvider, usePagePairs] = constate(usePagePairsInner);
+
+export function usePagePairs() {
+  return use(PagePiarsContext);
+}

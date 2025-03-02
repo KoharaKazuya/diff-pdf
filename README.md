@@ -11,5 +11,5 @@
 ```console
 $ npm ci
 $ npm run dev # http://localhost:3000 でサーバーが起動する
-$ npm test # 前提: npm run dev の実行中
+$ npm test
 ```
