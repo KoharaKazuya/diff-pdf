@@ -9,7 +9,7 @@ const LazyImageDialog = dynamic(
 );
 
 type Props = {
-  children: React.ReactNode;
+  children: (opts: { inDialog: boolean }) => React.ReactNode;
   label?: React.ReactNode;
   frameColor?: "green" | "red" | "gray";
 };
@@ -29,13 +29,11 @@ export default function PageFrame({
         {label && (
           <PageFrameLabel frameColor={frameColor}>{label}</PageFrameLabel>
         )}
-        <Centerize>{children}</Centerize>
+        <Centerize>{children({ inDialog: false })}</Centerize>
       </PressableFrame>
-      {isOpen && (
-        <LazyImageDialog onDismiss={() => setIsOpen(false)}>
-          {children}
-        </LazyImageDialog>
-      )}
+      <LazyImageDialog isOpen={isOpen} onDismiss={() => setIsOpen(false)}>
+        {children({ inDialog: true })}
+      </LazyImageDialog>
     </>
   );
 }

@@ -6,9 +6,10 @@ import Image from "../../Image";
 type Props = {
   parser: PdfParser;
   index: number;
+  fit?: boolean;
 };
 
-export default function PdfPage({ parser, index }: Props) {
+export default function PdfPage({ parser, index, fit }: Props) {
   const { result: image } = useAsync(
     async (parser: PdfParser, index: number) => {
       const doc = await parser.parse();
@@ -20,7 +21,7 @@ export default function PdfPage({ parser, index }: Props) {
   );
 
   return image ? (
-    <Image data={image} aria-label={`PDF page ${index}`} />
+    <Image data={image} fit={fit} aria-label={`PDF page ${index}`} />
   ) : (
     <Text>Loading...</Text>
   );

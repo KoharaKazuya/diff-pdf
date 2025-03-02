@@ -3,6 +3,7 @@ import type { PdfParser } from "../../pdf-parser";
 import { useFilteredPagePairs } from "../../state/filtered-page-pairs";
 import { usePagesL, usePagesR } from "../../state/pages";
 import { usePdfParserL, usePdfParserR } from "../../state/pdf-parser";
+import Centerize from "../Centerize";
 import Image from "../Image";
 import GridTable from "./ComparisonResult/GridTable";
 import NoMatch from "./ComparisonResult/NoMatch";
@@ -35,11 +36,15 @@ function parserPages(
   return pages.map((p, i) =>
     p !== undefined ? (
       <PageFrame key={`${parser.id}-p${p}`} label={p}>
-        <PdfPage parser={parser} index={p} />
+        {({ inDialog }) => <PdfPage parser={parser} index={p} fit={inDialog} />}
       </PageFrame>
     ) : (
       <PageFrame key={`${parser.id}-undefined${i}`}>
-        <NoMatch />
+        {() => (
+          <Centerize>
+            <NoMatch />
+          </Centerize>
+        )}
       </PageFrame>
     ),
   );
@@ -61,11 +66,19 @@ function pairPages(
           label === "一致" ? "green" : label === "差分" ? "red" : "gray"
         }
       >
-        {"diff" in pair ? (
-          <Image data={pair.diff} aria-label="PDF page difference" />
-        ) : (
-          <NoMatch />
-        )}
+        {({ inDialog }) =>
+          "diff" in pair ? (
+            <Image
+              data={pair.diff}
+              fit={inDialog}
+              aria-label="PDF page difference"
+            />
+          ) : (
+            <Centerize>
+              <NoMatch />
+            </Centerize>
+          )
+        }
       </PageFrame>
     );
   });
